@@ -1,5 +1,14 @@
-# BaileyLabMRRs
-***
+---
+title: "BaileyLabMRRs"
+author: "James Wade"
+date: "November 12, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
 ## Introduction
 
 The programs within this repository are designed to process and analyze data 
@@ -61,7 +70,7 @@ To use the program:
 
 1. Ensure the you have the necessary libraries installed. See note above for instructions on installing libraries.
 2. Copy the chip layout file (e.g., "groupNames_XPP.csv") into the directory containing the raw ring data.
-     Note: This program has the highest chance of success if the directoy only contains:  
+     Note: This program has the highest chance of success if the directoy _only_ contains:  
      1. raw ring data files (e.g., "03.csv", "04.csv", etc.) and
      2. the chip layout file (e.g., "groupNames_XPP.csv")
 3. Source all of the code from this file. There are multiple ways, but one method is to click the `Source` button on the window of the Source Console in RStudio after opening this file in RStudio.
@@ -76,7 +85,7 @@ To use the program:
     5 time2 - the earlier time for net shift measurments
 Note: to calculate net shift measurements, the relative shift at time2 is subtracted from time1 (netshift = time1 - time2).  
 Here is an example of code to run: 
-```{r}
+```{r, eval = F}
 analyzeData(filename = "groupNames_XPP.csv",
             time1 = 51,
             time2 = 39,
