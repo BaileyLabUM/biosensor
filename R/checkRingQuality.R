@@ -7,24 +7,22 @@ checkRingQuality <- function(loc, time1, time2, nrings = 10) {
         absmax <- function(x) { x[which.max( abs(x) )]}
 
         # calculate variance and max signal for each ring
-        dat.var <- dat %>% dplyr::group_by(Ring) %>%
-                dplyr::summarise_at(vars(Shift),
-                                    funs(Variance = stats::var, Max = absmax))
+        dat.var <- dplyr::group_by(dat, Ring)
+        dat.var <- dplyr::summarise_at(dat.var, dplyr::vars(Shift),
+                                       dplyr::funs(Variance = stats::var,
+                                            Max = absmax))
 
         # plot Variance vs Max signal (on log axis)
-        g1 <- ggplot2::ggplot(dat.var, aes(x = Variance, y = Max,
+        g1 <- ggplot2::ggplot(dat.var, ggplot2::aes(x = Variance, y = Max,
                                   color = factor(Ring))) +
                 ggplot2::geom_point() +
                 ggplot2::scale_x_log10() +
                 ggplot2::scale_y_log10()
 
         # create variables for rings with variance above/below given variance
-        ringWinners <- dplyr::arrange(dat.var, Variance) %>%
-                dplyr::select(Ring) %>%
-                utils::head(nrings)
-        ringLosers <- dplyr::arrange(dat.var, Variance) %>%
-                dplyr::select(Ring) %>%
-                utils::tail(nrings)
+        ringVar <- dplyr::arrange(dat.var, Variance)
+        ringWinners <- utils::head(dplyr::select(ringVar, Ring), nrings)
+        ringLosers <- utils::tail(dplyr::select(ringVar, Ring), nrings)
 
         # save files with list of good and bad rings base on given variance
         readr::write_csv(ringWinners, paste0(loc, '/', name, "_ringWinners.csv"))

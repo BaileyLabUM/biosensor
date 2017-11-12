@@ -19,6 +19,10 @@
 #' @param loc a string with directory name to save plots and data files
 #' @param fsr a logical value indicating whether the data contains FSR shifts
 #' @param chkRings a logical value indicating if rings should be removed
+#' @param plotData a logical value indicating if data should be plotted, which
+#' will save a series of png files
+#' @param celebrate a logical value, set it to TRUE for to be alerted when your
+#' script has finished
 #'
 #' @return This function returns csv files containing processed data along with
 #' a number of png files containing plots of the processed data.
@@ -28,8 +32,13 @@
 #' setwd(dir)
 #' analyzeMRRData(time1 = 51, time2 = 39,
 #'                filename = "groupNames_XPP.csv",
-#'                loc = "plots", fsr = FALSE, chkRings = FALSE)
-#'
+#'                loc = "plots", fsr = FALSE,
+#'                chkRings = FALSE, plotData = FALSE, celebrate = FALSE)
+#' \donttest{analyzeMRRData(time1 = 51, time2 = 39,
+#'                          filename = "groupNames_XPP.csv",
+#'                          loc = "plots", fsr = TRUE,
+#'                          chkRings = TRUE, plotData = TRUE,
+#'                          celebrate = FALSE)}
 #'
 #' @export
 #'
@@ -38,24 +47,35 @@ analyzeMRRData <- function(time1 = 51, time2 = 39,
                         filename = "groupNames_XPP.csv",
                         loc = "plots",
                         fsr = FALSE,
-                        chkRings = FALSE) {
+                        chkRings = FALSE,
+                        plotData = TRUE,
+                        celebrate = TRUE) {
         getName()
         aggData(filename = filename, loc = loc, fsr = fsr)
         subtractControl(ch = 1, cntl = "thermal", loc = loc)
         subtractControl(ch = 2, cntl = "thermal", loc = loc)
         subtractControl(ch = "U", cntl = "thermal", loc = loc)
-        plotRingData(cntl = "raw", ch = "U", splitPlot = TRUE, loc = loc)
-        plotRingData(cntl = "thermal", ch = "U", splitPlot = TRUE, loc = loc)
-        plotRingData(cntl = "thermal", ch = 1, splitPlot = FALSE, loc = loc)
-        plotRingData(cntl = "raw", ch = 1, splitPlot = FALSE, loc = loc)
-        plotRingData(cntl = "thermal", ch = 2, splitPlot = FALSE, loc = loc)
-        plotRingData(cntl = "raw", ch = 2, splitPlot = FALSE, loc = loc)
+
         getNetShifts(cntl = "thermal", ch = 1,
                      time1 = time1, time2 = time2, step = 1, loc = loc)
         getNetShifts(cntl = "thermal", ch = 2,
                      time1 = time1, time2 = time2, step = 1, loc = loc)
-        plotNetShifts(cntl = "thermal", ch = 1, step = 1, loc = loc)
-        plotNetShifts(cntl = "thermal", ch = 2, step = 1, loc = loc)
-        if (chkRings){checkRingQuality(time1 = 20, time2 = 30)}
-        # shell.exec("https://youtu.be/dQw4w9WgXcQ")
+        if(plotData){
+                plotRingData(cntl = "raw", ch = "U",
+                             splitPlot = TRUE, loc = loc)
+                plotRingData(cntl = "thermal", ch = "U",
+                             splitPlot = TRUE, loc = loc)
+                plotRingData(cntl = "thermal", ch = 1,
+                             splitPlot = FALSE, loc = loc)
+                plotRingData(cntl = "raw", ch = 1,
+                             splitPlot = FALSE, loc = loc)
+                plotRingData(cntl = "thermal", ch = 2,
+                             splitPlot = FALSE, loc = loc)
+                plotRingData(cntl = "raw", ch = 2,
+                             splitPlot = FALSE, loc = loc)
+                plotNetShifts(cntl = "thermal", ch = 1, step = 1, loc = loc)
+                plotNetShifts(cntl = "thermal", ch = 2, step = 1, loc = loc)
+        }
+        if (chkRings){checkRingQuality(time1 = 20, time2 = 30, loc = loc)}
+        if (celebrate){shell.exec("https://youtu.be/dQw4w9WgXcQ")}
 }

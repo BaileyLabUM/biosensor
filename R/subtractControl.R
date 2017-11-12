@@ -5,10 +5,10 @@ subtractControl <- function(loc, ch, cntl){
         dat <- dplyr::filter(dat, Target != "Ignore")
 
         # get thermal control averages
-        controls <- dplyr::filter(dat, Target == cntl) %>%
-                dplyr::group_by(`Time Point`) %>%
-                dplyr::summarise_at("Shift", mean) %>%
-                dplyr::select(Shift) %>% unlist()
+        controls <- dplyr::filter(dat, Target == cntl)
+        controls <- dplyr::group_by(controls, `Time Point`)
+        controls <- dplyr::summarise_at(controls, "Shift", mean)
+        controls <- unlist(dplyr::select(controls, Shift) )
         dat$Cntl <- rep(controls, length(unique(dat$Ring)))
 
         # subtracts thermal controls from each ring

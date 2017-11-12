@@ -5,7 +5,8 @@
 \title{Process M1 Raw Data}
 \usage{
 analyzeMRRData(time1 = 51, time2 = 39, filename = "groupNames_XPP.csv",
-  loc = "plots", fsr = FALSE, chkRings = FALSE)
+  loc = "plots", fsr = FALSE, chkRings = FALSE, plotData = TRUE,
+  celebrate = TRUE)
 }
 \arguments{
 \item{time1}{a number specifying the later time for net shift calculations}
@@ -19,6 +20,12 @@ analyzeMRRData(time1 = 51, time2 = 39, filename = "groupNames_XPP.csv",
 \item{fsr}{a logical value indicating whether the data contains FSR shifts}
 
 \item{chkRings}{a logical value indicating if rings should be removed}
+
+\item{plotData}{a logical value indicating if data should be plotted, which
+will save a series of png files}
+
+\item{celebrate}{a logical value, set it to TRUE for to be alerted when your
+script has finished}
 }
 \value{
 This function returns csv files containing processed data along with
@@ -43,7 +50,12 @@ dir <- system.file("extdata", "sampledata", package = "biosensor")
 setwd(dir)
 analyzeMRRData(time1 = 51, time2 = 39,
                filename = "groupNames_XPP.csv",
-               loc = "plots", fsr = FALSE, chkRings = FALSE)
-
+               loc = "plots", fsr = FALSE,
+               chkRings = FALSE, plotData = FALSE, celebrate = FALSE)
+\donttest{analyzeMRRData(time1 = 51, time2 = 39,
+                         filename = "groupNames_XPP.csv",
+                         loc = "plots", fsr = TRUE,
+                         chkRings = TRUE, plotData = TRUE,
+                         celebrate = FALSE)}
 
 }

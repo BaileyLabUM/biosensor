@@ -1,0 +1,95 @@
+---
+title: "BaileyLabMRRs"
+author: "James Wade"
+date: "November 12, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction
+
+The programs within this repository are designed to process and analyze data
+from the M1 Maverick Detection System (Genalyte, Inc., San Diego, CA). Details
+about each program are provided within each program file. The instructions are
+also reproduced below. Sample data is available in the SampleData folder within
+this repository.
+
+***
+
+        ## Getting started
+
+        ###To get started, follow these steps:
+
+        1. If you have not already done so, download and install R and RStudio. There
+are many online tutorials available with instructions.
+2. Ensure all of your packages are up to date.
+3. Download this respository from Github. From [this link](https://github.com/BaileyLabUM/BaileyLabMRRs), click on
+`Clone or Download` and then click `Download Zip`. Alternatively [click here](https://github.com/BaileyLabUM/BaileyLabMRRs/archive/master.zip) to
+download the repository directly.
+4. Unzip the repository into a directory your choosing.
+5. Open RStudio, and set the working directory to the directory with the
+program files and sample data. See instructions on setting the working directory
+in R [here](https://www.statmethods.net/interface/workspace.html). For example,
+if you are using a Windows machine and downloaded into your `Downloads` folder,
+you could set your working directory by executing the following line in the
+console: `setwd("C:/Users/USERNAME/Download/BaileyLabMRRs-master")`. Depending
+on how you extracted the compressed files you may need to use `setwd("C:/Users/USERNAME/Download/BaileyLabMRRs-master/BaileyLabMRRs-master")`
+instead.
+
+***
+
+        ##Library Specifics
+
+        The purpose of this program is to process with the raw data from the
+Maverick M1 detection system (Genalyte, Inc., San Diego, CA) and output simple
+line graphs, bar charts, and box plots. The functions also generate companion
+csv files containning processed the prcoessed data for subsequent analysis.
+The folder containing output from the M1 typically consists of:
+
+        1. a csv file for each ring and
+2. a comments file the describes the experimental run
+
+The comments file is not needed for this program. In addition to the csv files
+for each ring, a separate file containing the chip layout is required. An
+example of a chip layout file is provided in the "BaileyLabMRRs" repository
+located at https://github.com/BaileyLabUM/BaileyLabMRRs. See
+"groupNames_allClusters.csv" for an example.
+
+Note: This version of the software is optimized for the Bailey lab's HRP
+assay. See dx.doi.org/10.1021/acscentsci.5b00250 for a description. However,
+input variables can be altered to accomodate many alternative experiments.
+
+The following libraries are used in this program: tidyverse, ggthemes.
+To install these packages, run the following code in the console:
+install.packages(c("tidyverse", "ggthemes"))
+
+To use the program:
+
+1. Ensure the you have the necessary libraries installed. See note above for instructions on installing libraries.
+2. Copy the chip layout file (e.g., "groupNames_XPP.csv") into the directory containing the raw ring data.
+Note: This program has the highest chance of success if the directoy _only_ contains:
+1. raw ring data files (e.g., "03.csv", "04.csv", etc.) and
+2. the chip layout file (e.g., "groupNames_XPP.csv")
+3. Source all of the code from this file. There are multiple ways, but one method is to click the `Source` button on the window of the Source Console in RStudio after opening this file in RStudio.
+
+4. Set the working directory to the folder containing the raw data and chip layout for example ```setwd("C:/Users/USERNAME/Documents/CHIPNAME_gaskGASK_DATE")```
+
+5. Execute the code by running the AnalyzeData function. This function requires 5 input variable:
+1 filename - the name of the chip layout file
+2 loc - the name of folder to store generated files
+3 fsr - a logical variable the corrects for free spectral range shifts; most likely leave as FALSE if you don't know what this is
+4 time1 - the later time for net shift measurements
+5 time2 - the earlier time for net shift measurments
+Note: to calculate net shift measurements, the relative shift at time2 is subtracted from time1 (netshift = time1 - time2).
+Here is an example of code to run:
+```{r, eval = F}
+analyzeData(filename = "groupNames_XPP.csv",
+            time1 = 51,
+            time2 = 39,
+            loc = "plots",
+            fsr = FALSE,
+            chkRings = FALSE)
+```

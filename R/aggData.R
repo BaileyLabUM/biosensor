@@ -20,7 +20,7 @@ aggData <- function(loc, filename, fsr, fsrThresh = 3000) {
 
         # add data to data frame corresponding for each ring in rings
         df <- lapply(rings, function(i){
-                dat <- readr::read_csv(i, col_names = FALSE)
+                dat <- read.csv(i, header = FALSE)
                 ringNum <- as.numeric(strsplit(i, "\\.")[[1]][1])
                 recipeCol <- which(recipe$Ring == ringNum)
                 tmp <- dat[,c(1,2)] # time and shift from raw data

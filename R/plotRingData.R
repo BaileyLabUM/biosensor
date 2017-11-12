@@ -11,7 +11,7 @@ plotRingData <- function(cntl, ch, loc, splitPlot = FALSE){
         }
 
         # configure plot and legend
-        plots <- ggplot2::ggplot(dat, aes(x = Time, y = Shift,
+        plots <- ggplot2::ggplot(dat, ggplot2::aes(x = Time, y = Shift,
                                  color = Target, group = Ring)) +
                 ggplot2::labs(x = "Time (min)",
                      y = expression(paste("Relative Shift (",Delta,"pm)")),
@@ -22,11 +22,11 @@ plotRingData <- function(cntl, ch, loc, splitPlot = FALSE){
 
         # alternative plots with averaged clusters
 
-        dat.2 <- dat %>% dplyr::group_by(Target, `Time Point`) %>%
-                dplyr::summarise_at(vars(Time, Shift),
-                                    funs(mean, sd = stats::sd))
+        dat.2 <-dplyr::group_by(dat, Target, `Time Point`)
+        dat.2 <- dplyr::summarise_at(dat.2, dplyr::vars(Time, Shift),
+                                     dplyr::funs(mean, sd = stats::sd))
 
-        plot2 <- ggplot2::ggplot(dat.2, aes(x = Time_mean, y = Shift_mean,
+        plot2 <- ggplot2::ggplot(dat.2, ggplot2::aes(x = Time_mean, y = Shift_mean,
                                    color = Target)) +
                 ggplot2::geom_line() +
                 ggplot2::labs(x = "Time (min)",
@@ -36,7 +36,7 @@ plotRingData <- function(cntl, ch, loc, splitPlot = FALSE){
                                        cntl, sep = " "))
 
         plot3 <- plot2 +
-                ggplot2::geom_ribbon(aes(ymin = Shift_mean - Shift_sd,
+                ggplot2::geom_ribbon(ggplot2::aes(ymin = Shift_mean - Shift_sd,
                                 ymax = Shift_mean + Shift_sd,
                                 linetype = NA),
                             fill = "slategrey", alpha = 1/8)

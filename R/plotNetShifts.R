@@ -8,7 +8,7 @@ plotNetShifts <- function(cntl, ch, loc, step = 1){
         dat.nothermal <- dplyr::filter(dat, Target != "thermal")
 
         plots <- ggplot2::ggplot(dat.nothermal,
-                        aes(x = Target, y = NetShift, fill = Target)) +
+                        ggplot2::aes(x = Target, y = NetShift, fill = Target)) +
                 ggplot2::geom_boxplot() +
                 ggplot2::theme(axis.text.x =
                                        ggplot2::element_text(angle = 45,
@@ -18,11 +18,11 @@ plotNetShifts <- function(cntl, ch, loc, step = 1){
                 ggplot2::ggtitle(paste0(name, " Ch: ", ch, " Control: ", cntl))
 
         allRings <- ggplot2::ggplot(dat.nothermal,
-                           aes(x = factor(Ring), y= NetShift,
+                           ggplot2::aes(x = factor(Ring), y= NetShift,
                                fill = Target)) +
                 ggplot2::geom_bar(stat = "identity") +
                 ggplot2::theme(axis.text.x =
-                              element_text(angle = 90,
+                              ggplot2::element_text(angle = 90,
                                            hjust = 1, vjust = 0.5)) +
                 ggplot2::ylab(expression(paste("Net Shift (",Delta,"pm)"))) +
                 ggplot2::xlab("Ring") +

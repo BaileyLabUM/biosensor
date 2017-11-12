@@ -1,10 +1,10 @@
 getNetShifts <- function(cntl, ch, loc, time1, time2, step = 1){
         # use thermally controlled data if desired
         if (cntl != "raw"){
-                dat <- readr::read_csv(paste0(loc, "/", name, "_", cntl,
+                dat <- read.csv(paste0(loc, "/", name, "_", cntl,
                                               "Control", "_ch", ch, ".csv"))
         } else {
-                dat <- readr::read_csv(paste0(loc, "/", name, "_",
+                dat <- read.csv(paste0(loc, "/", name, "_",
                                               "allRings.csv"))
         }
 
@@ -33,8 +33,7 @@ getNetShifts <- function(cntl, ch, loc, time1, time2, step = 1){
                               "Experiment", "Channel", "Step")
 
         # calculate nat shift and create new column in dataframe
-        dat.rings <- dat.rings %>%
-                dplyr::mutate(NetShift = Shift.1 - Shift.2)
+        dat.rings <- dplyr::mutate(dat.rings, NetShift = Shift.1 - Shift.2)
 
         # save net shift data
         readr::write_csv(dat.rings, paste0(loc, "/", name, "_netShifts_", cntl,
