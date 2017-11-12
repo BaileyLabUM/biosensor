@@ -2,38 +2,6 @@
 ***
 ## Introduction
 
-The programs within this repository are designed to process and analyze data 
-from the M1 Maverick Detection System (Genalyte, Inc., San Diego, CA). Details 
-about each program are provided within each program file. The instructions are 
-also reproduced below. Sample data is available in the SampleData folder within 
-this repository. 
-
-***
-
-## Getting started
-
-###To get started, follow these steps:
-
-1. If you have not already done so, download and install R and RStudio. There 
-are many online tutorials available with instructions.
-2. Ensure all of your packages are up to date.
-3. Download this respository from Github. From [this link](https://github.com/BaileyLabUM/BaileyLabMRRs), click on
-`Clone or Download` and then click `Download Zip`. Alternatively [click here](https://github.com/BaileyLabUM/BaileyLabMRRs/archive/master.zip) to 
-download the repository directly.
-4. Unzip the repository into a directory your choosing.
-5. Open RStudio, and set the working directory to the directory with the
-program files and sample data. See instructions on setting the working directory
-in R [here](https://www.statmethods.net/interface/workspace.html). For example,
-if you are using a Windows machine and downloaded into your `Downloads` folder,
-you could set your working directory by executing the following line in the
-console: `setwd("C:/Users/USERNAME/Download/BaileyLabMRRs-master")`. Depending
-on how you extracted the compressed files you may need to use `setwd("C:/Users/USERNAME/Download/BaileyLabMRRs-master/BaileyLabMRRs-master")`
-instead.
-
-***
-
-##Library Specifics
-
 The purpose of this program is to process with the raw data from the
 Maverick M1 detection system (Genalyte, Inc., San Diego, CA) and output simple
 line graphs, bar charts, and box plots. The functions also generate companion
@@ -53,34 +21,82 @@ Note: This version of the software is optimized for the Bailey lab's HRP
 assay. See dx.doi.org/10.1021/acscentsci.5b00250 for a description. However,
 input variables can be altered to accomodate many alternative experiments.
 
-The following libraries are used in this program: tidyverse, ggthemes.
-To install these packages, run the following code in the console:
-      install.packages(c("tidyverse", "ggthemes"))
+***
 
-To use the program:
+## Getting started
 
-1. Ensure the you have the necessary libraries installed. See note above for instructions on installing libraries.
-2. Copy the chip layout file (e.g., "groupNames_XPP.csv") into the directory containing the raw ring data.
-     Note: This program has the highest chance of success if the directoy only contains:  
+### To get started, follow these steps:
+
+1. If you have not already done so, download and install R and RStudio. There 
+are many online tutorials available with instructions.
+2. Ensure all of your packages are up to date. To update all packages, run 
+`update.packages()` in the Console in RStudio.
+3. All files for this library are located 
+[here](https://github.com/BaileyLabUM/biosensor). To install this library on
+your local machine requires the `devtools` library. Run the following code to
+install `devtools` and the `biosensor` package.
+```
+install.packages("devtools")
+library(devtools)
+install_github("BaileyLabUM/biosensor")
+```
+
+***
+
+## Library Instructions
+
+### To use the program:
+
+1. Ensure the you have the necessary libraries installed. See note above for 
+instructions on installing libraries.
+
+2. Copy the chip layout file (e.g., "groupNames_XPP.csv") into the directory
+containing the raw ring data you wish to analyze.
+     Note: This program has the highest chance of success if the directory 
+     only contains:  
      1. raw ring data files (e.g., "03.csv", "04.csv", etc.) and
      2. the chip layout file (e.g., "groupNames_XPP.csv")
-3. Source all of the code from this file. There are multiple ways, but one method is to click the `Source` button on the window of the Source Console in RStudio after opening this file in RStudio.
 
-4. Set the working directory to the folder containing the raw data and chip layout for example ```setwd("C:/Users/USERNAME/Documents/CHIPNAME_gaskGASK_DATE")```
+3. Set the working directory to the directory containing your raw data and chip
+layout file. See instructions on setting the working directory
+in R [here](https://www.statmethods.net/interface/workspace.html). For example,
+if you are using a Windows machine and your ring data is on your `Desktop` 
+folder, you could set your working directory by executing the following line 
+in the console: 
+`setwd("C:/Users/USERNAME/Desktop/CHIPNAME_gaskGASKNAME_DATE")`.
 
-5. Execute the code by running the AnalyzeData function. This function requires 5 input variable:
-    1 filename - the name of the chip layout file
-    2 loc - the name of folder to store generated files
-    3 fsr - a logical variable the corrects for free spectral range shifts; most likely leave as FALSE if you don't know what this is
-    4 time1 - the later time for net shift measurements
-    5 time2 - the earlier time for net shift measurments
-Note: to calculate net shift measurements, the relative shift at time2 is subtracted from time1 (netshift = time1 - time2).  
+4. Execute the code by running the analyzeMRRData function. This function 
+requires 5 input variable:
+    1. *time1* - a number specifying the later time for net shift calculations
+    2. *time2* - a number specifying the earlier time for net shift calculations
+    3. *filename* - a string with the filename containing the chip layout
+    4. *loc* - a string with directory name to save plots and data files
+    5. *fsr* - a logical value indicating whether the data contains FSR shifts
+    6. *chkRings* -  a logical value indicating if rings should be removed
+    7. *plotData* - a logical value indicating if data should be plotted, which
+    will save a series of png files
+    8. *celebrate* a logical value, set it to TRUE for to be alerted when your
+    script has finished
+    Note: to calculate net shift measurements, the relative shift at *time2 is 
+    subtracted from time1* (netshift = time1 - time2).  
+
 Here is an example of code to run: 
 ```{r}
+setwd("C:/Users/USERNAME/Desktop/CHIPNAME_gaskGASKNAME_DATE")
 analyzeData(filename = "groupNames_XPP.csv",
             time1 = 51,
             time2 = 39,
             loc = "plots",
             fsr = FALSE, 
-            chkRings = FALSE)
+            chkRings = FALSE,
+            plotData = TRUE,
+            celebrate = TRUE)
 ```
+
+To see an example with data provided as part of this library execute the 
+following code:
+
+```{r}
+library(biosensor)
+examples(biosensor
+```)
