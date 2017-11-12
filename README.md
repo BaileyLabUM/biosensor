@@ -82,6 +82,7 @@ requires 5 input variable:
 
 Here is an example of code to run: 
 ```{r}
+library(biosensor)
 setwd("C:/Users/USERNAME/Desktop/CHIPNAME_gaskGASKNAME_DATE")
 analyzeData(filename = "groupNames_XPP.csv",
             time1 = 51,
@@ -97,6 +98,7 @@ To see an example with data provided as part of this library execute the
 following code:
 
 ```{r}
+library(biosensor)
 dir <- system.file("extdata", "20171112_gaskTestData_MRR", package = "biosensor")
 setwd(dir)
 analyzeMRRData(time1 = 51, time2 = 39,
