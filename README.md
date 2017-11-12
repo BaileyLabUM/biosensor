@@ -67,15 +67,15 @@ in the console:
 
 4. Execute the code by running the analyzeMRRData function. This function 
 requires 5 input variable:
-    1. *time1* - a number specifying the later time for net shift calculations
-    2. *time2* - a number specifying the earlier time for net shift calculations
-    3. *filename* - a string with the filename containing the chip layout
-    4. *loc* - a string with directory name to save plots and data files
-    5. *fsr* - a logical value indicating whether the data contains FSR shifts
-    6. *chkRings* -  a logical value indicating if rings should be removed
-    7. *plotData* - a logical value indicating if data should be plotted, which
+    1. _time1_ - a number specifying the later time for net shift calculations
+    2. _time2_ - a number specifying the earlier time for net shift calculations
+    3. _filename_ - a string with the filename containing the chip layout
+    4. _loc_ - a string with directory name to save plots and data files
+    5. _fsr_ - a logical value indicating whether the data contains FSR shifts
+    6. _chkRings_ -  a logical value indicating if rings should be removed
+    7. _plotData_ - a logical value indicating if data should be plotted, which
     will save a series of png files
-    8. *celebrate* a logical value, set it to TRUE for to be alerted when your
+    8. _celebrate_ a logical value, set it to TRUE for to be alerted when your
     script has finished
     Note: to calculate net shift measurements, the relative shift at *time2 is 
     subtracted from time1* (netshift = time1 - time2).  
@@ -97,6 +97,15 @@ To see an example with data provided as part of this library execute the
 following code:
 
 ```{r}
-library(biosensor)
-examples(biosensor
-```)
+dir <- system.file("extdata", "20171112_gaskTestData_MRR", package = "biosensor")
+setwd(dir)
+analyzeMRRData(time1 = 51, time2 = 39,
+               filename = "groupNames_XPP.csv",
+               loc = "plots", fsr = FALSE,
+               chkRings = FALSE, plotData = FALSE, celebrate = FALSE)
+analyzeMRRData(time1 = 51, time2 = 39,
+               filename = "groupNames_XPP.csv",
+               loc = "plots", fsr = TRUE,
+               chkRings = TRUE, plotData = TRUE,
+               celebrate = FALSE)
+```

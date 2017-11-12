@@ -28,7 +28,7 @@
 #' a number of png files containing plots of the processed data.
 #'
 #' @examples
-#' dir <- system.file("extdata", "sampledata", package = "biosensor")
+#' dir <- system.file("extdata", "20171112_gaskTestData_MRR", package = "biosensor")
 #' setwd(dir)
 #' analyzeMRRData(time1 = 51, time2 = 39,
 #'                filename = "groupNames_XPP.csv",

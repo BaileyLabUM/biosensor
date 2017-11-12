@@ -46,7 +46,7 @@ located at https://github.com/BaileyLabUM/BaileyLabMRRs. See the
 "groupNames_allClusters.csv" file for an example.
 }
 \examples{
-dir <- system.file("extdata", "sampledata", package = "biosensor")
+dir <- system.file("extdata", "20171112_gaskTestData_MRR", package = "biosensor")
 setwd(dir)
 analyzeMRRData(time1 = 51, time2 = 39,
                filename = "groupNames_XPP.csv",
