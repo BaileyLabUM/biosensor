@@ -5,6 +5,7 @@ plotRingData <- function(data, raw = FALSE, loc, splitPlot = FALSE){
         # assign parameters for plots and plot names
         if(raw){
                 yAxis <- as.symbol("Shift")
+                yAxisAvg <- as.symbol("Shift_mean")
                 cntl <- "Raw"
         } else {
                 yAxis <- as.symbol("Corrected")
