@@ -14,7 +14,7 @@ calibrationStation <- function(celebrate = TRUE) {
                 setwd(directory)
         })
         x <- combineNetShifts()
-        plotCombineNetShifts(data = x)
+        plotCombinedNetShifts(data = x)
         fitCalCurves(data = x)
         if (celebrate){shell.exec("https://youtu.be/dQw4w9WgXcQ")}
 }

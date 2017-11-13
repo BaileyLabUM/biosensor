@@ -4,7 +4,7 @@ fitCalCurves <- function(data, loc = 'plots', tarList){
         tarList <- unique(data$Target)
         fit <- list()
         for(i in tarList) {
-                tarDat <- dplyr::filter(dat, Target == i)
+                tarDat <- dplyr::filter(data, Target == i)
                 y <- tarDat$NetShift
                 x <- tarDat$Concentration
                 tarFit <- tryCatch({fit.info <- nls(formula = y ~ A + (B - A) /
@@ -33,9 +33,10 @@ fitCalCurves <- function(data, loc = 'plots', tarList){
                                 ggplot2::geom_boxplot(fill = "red") +
                                 ggplot2::stat_function(fun = testFun,
                                                        color = "blue", size = 1) +
-                                ggplot2::scale_x_log10(breaks = scales::trans_breaks("log10", function(x) 10^x),
+                                ggplot2::scale_x_log10(breaks = scales::trans_breaks("log10",
+                                                                                     function(x) 10^x),
                                                        labels = scales::trans_format("log10",
-                                                                                     scales::math_format(10 ^ .x))) +
+                                                                scales::math_format(10 ^ .x))) +
                                 ggplot2::labs(x = "Analyte Concentration (pg/mL)",
                                               y = expression(paste("Relative Shift (",
                                                                    Delta,

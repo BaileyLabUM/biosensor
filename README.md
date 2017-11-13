@@ -8,6 +8,7 @@ The purpose of this program is to process with the raw data from the
 Maverick M1 detection system (Genalyte, Inc., San Diego, CA) and output simple
 line graphs, bar charts, and box plots. The functions also generate companion
 csv files containning processed the prcoessed data for subsequent analysis.
+Additional functions are available to general calibration curves.
 The folder containing output from the M1 typically consists of:
 
 1. a csv file for each ring and
@@ -46,6 +47,14 @@ devtools::install_github("BaileyLabUM/biosensor")
 ***
 
 ## Library Instructions
+
+The functions within this library include:
+
+1. analyzeMRRData
+2. aggData
+3. calibrationStation
+4. aggCalData
+5. analyzeCalMRRData
 
 ### To use the program:
 

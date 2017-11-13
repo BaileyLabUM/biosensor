@@ -1,16 +1,16 @@
 #' Process M1 Raw Data
 #'
 #' The purpose of this program is to process with the raw data from the
-#' Maverick M1 detection system (Genalyte, Inc., San Diego, CA) and output simple
-#' line graphs, bar charts, and box plots. The functions also generate companion
-#' csv files containning processed the prcoessed data for subsequent analysis.
-#' The folder containing output from the M1 typically consists of:
+#' Maverick M1 detection system (Genalyte, Inc., San Diego, CA) and output
+#' simple line graphs, bar charts, and box plots. The functions also generate
+#' companion csv files containning processed the prcoessed data for subsequent
+#' analysis. The folder containing output from the M1 typically consists of:
 #'    1. a csv file for each ring and
 #'    2. a comments file the describes the experimental run
-#' The comments file is not needed for this program. In addition to the csv files
-#' for each ring, a separate file containing the chip layout is required. An
-#' example of a chip layout file is provided in the "BaileyLabMRRs" repository
-#' located at https://github.com/BaileyLabUM/BaileyLabMRRs. See the
+#' The comments file is not needed for this program. In addition to the csv
+#' files for each ring, a separate file containing the chip layout is required.
+#' An example of a chip layout file is provided in the "BaileyLabMRRs"
+#' repository located at https://github.com/BaileyLabUM/BaileyLabMRRs. See the
 #' "groupNames_allClusters.csv" file for an example.
 #'
 #' @param time1 a number specifying the later time for net shift calculations
@@ -28,7 +28,8 @@
 #' a number of png files containing plots of the processed data.
 #'
 #' @examples
-#' dir <- system.file("extdata", "20171112_gaskTestData_MRR", package = "biosensor")
+#' dir <- system.file("extdata", "20171112_gaskTestData_MRR",
+#'                    package = "biosensor")
 #' setwd(dir)
 #' analyzeMRRData(time1 = 51, time2 = 39,
 #'                filename = "groupNames_XPP.csv",
@@ -98,10 +99,10 @@ analyzeMRRData <- function(time1 = 51, time2 = 39,
         }
 
         if (chkRings){
-                bestRings <- checkRingQuality(data = aggData,
-                                              chkTime1 = 20,
-                                              chkTime2 = 30,
-                                              loc = loc)}
+                checkRingQuality(data = aggData,
+                                 chkTime1 = 20,
+                                 chkTime2 = 30,
+                                 loc = loc)}
 
         if (celebrate){shell.exec("https://youtu.be/dQw4w9WgXcQ")}
 }
