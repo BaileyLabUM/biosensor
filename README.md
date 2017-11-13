@@ -79,6 +79,7 @@ requires 5 input variable:
     will save a series of png files
     8. **celebrate** - a logical value, set it to TRUE for to be alerted when your
     script has finished
+    
     Note: to calculate net shift measurements, the relative shift at *time2 is 
     subtracted from time1* (netshift = time1 - time2).  
 
