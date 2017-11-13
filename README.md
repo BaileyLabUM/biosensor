@@ -1,4 +1,4 @@
-# BaileyLabMRRs
+# biosensor - A Library for Biosensor Data Analysis
 ***
 ## Introduction
 
@@ -36,9 +36,9 @@ are many online tutorials available with instructions.
 your local machine requires the `devtools` library. Run the following code to
 install `devtools` and the `biosensor` package.
 ```
-install.packages("devtools")
-library(devtools)
-install_github("BaileyLabUM/biosensor")
+# uncomment the line below if devtools is not installed
+# install.packages("devtools")
+devtools::install_github("BaileyLabUM/biosensor")
 ```
 
 ***
