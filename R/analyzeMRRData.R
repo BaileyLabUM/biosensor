@@ -51,31 +51,57 @@ analyzeMRRData <- function(time1 = 51, time2 = 39,
                         plotData = TRUE,
                         celebrate = TRUE) {
         getName()
-        aggData(filename = filename, loc = loc, fsr = fsr)
-        subtractControl(ch = 1, cntl = "thermal", loc = loc)
-        subtractControl(ch = 2, cntl = "thermal", loc = loc)
-        subtractControl(ch = "U", cntl = "thermal", loc = loc)
+        aggDat <- aggData(filename = filename, loc = loc, fsr = fsr)
+        subDat_ch1 <- subtractControl(data = aggDat,
+                                      ch = 1,
+                                      cntl = "thermal",
+                                      loc = loc)
+        subDat_ch2 <- subtractControl(data = aggDat,
+                                      ch = 2,
+                                      cntl = "thermal",
+                                      loc = loc)
+        subDat_chU <- subtractControl(data = aggDat,
+                                      ch = "U",
+                                      cntl = "thermal",
+                                      loc = loc)
 
-        getNetShifts(cntl = "thermal", ch = 1,
-                     time1 = time1, time2 = time2, step = 1, loc = loc)
-        getNetShifts(cntl = "thermal", ch = 2,
-                     time1 = time1, time2 = time2, step = 1, loc = loc)
+        netDat_ch1 <- getNetShifts(data = subDat_ch1,
+                                   time1 = time1,
+                                   time2 = time2,
+                                   step = 1,
+                                   loc = loc)
+        netDat_ch2 <- getNetShifts(data = subDat_ch2,
+                                   time1 = time1,
+                                   time2 = time2,
+                                   step = 1,
+                                   loc = loc)
+
         if(plotData){
-                plotRingData(cntl = "raw", ch = "U",
-                             splitPlot = TRUE, loc = loc)
-                plotRingData(cntl = "thermal", ch = "U",
-                             splitPlot = TRUE, loc = loc)
-                plotRingData(cntl = "thermal", ch = 1,
-                             splitPlot = FALSE, loc = loc)
-                plotRingData(cntl = "raw", ch = 1,
-                             splitPlot = FALSE, loc = loc)
-                plotRingData(cntl = "thermal", ch = 2,
-                             splitPlot = FALSE, loc = loc)
-                plotRingData(cntl = "raw", ch = 2,
-                             splitPlot = FALSE, loc = loc)
-                plotNetShifts(cntl = "thermal", ch = 1, step = 1, loc = loc)
-                plotNetShifts(cntl = "thermal", ch = 2, step = 1, loc = loc)
+                plotRingData(data = subDat_chU,
+                             splitPlot = FALSE,
+                             loc = loc,
+                             raw = TRUE)
+                plotRingData(data = subDat_chU,
+                             splitPlot = TRUE,
+                             loc = loc,
+                             raw = FALSE)
+                plotRingData(data = subDat_ch1,
+                             splitPlot = FALSE,
+                             loc = loc,
+                             raw = FALSE)
+                plotRingData(data = subDat_ch2,
+                             splitPlot = FALSE,
+                             loc = loc,
+                             raw = FALSE)
+                plotNetShifts(data = netDat_ch1, step = 1, loc = loc)
+                plotNetShifts(data = netDat_ch2, step = 1, loc = loc)
         }
-        if (chkRings){checkRingQuality(time1 = 20, time2 = 30, loc = loc)}
+
+        if (chkRings){
+                bestRings <- checkRingQuality(data = aggData,
+                                              chkTime1 = 20,
+                                              chkTime2 = 30,
+                                              loc = loc)}
+
         if (celebrate){shell.exec("https://youtu.be/dQw4w9WgXcQ")}
 }

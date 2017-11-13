@@ -1,41 +1,38 @@
-getNetShifts <- function(cntl, ch, loc, time1, time2, step = 1){
-        # use thermally controlled data if desired
-        if (cntl != "raw"){
-                dat <- read.csv(paste0(loc, "/", name, "_", cntl,
-                                              "Control", "_ch", ch, ".csv"))
-        } else {
-                dat <- read.csv(paste0(loc, "/", name, "_",
-                                              "allRings.csv"))
-        }
+getNetShifts <- function(data, loc, time1, time2, step = 1){
 
         # generate list of rings and empty dataframe to store net shift data
-        ringList <- unique(dat$Ring)
+        ringList <- unique(data$Ring)
 
         # locations for each time is determined using which, min, and abs func
-        dat.rings <- lapply(ringList, function(i){
-                dat.ring <- dplyr::filter(dat, Ring == i)
-                time1.loc <- which.min(abs(dat.ring$Time - time1))
-                time1.val <- dat.ring$Shift[time1.loc]
-                time2.loc <- which.min(abs(dat.ring$Time - time2))
-                time2.val <- dat.ring$Shift[time2.loc]
+        shiftPoints <- lapply(ringList, function(i){
+                ringDat <- dplyr::filter(data, Ring == i)
+                time1.loc <- which.min(abs(ringDat$Time - time1))
+                time1.val <- ringDat$Shift[time1.loc]
+                time2.loc <- which.min(abs(ringDat$Time - time2))
+                time2.val <- ringDat$Shift[time2.loc]
                 ring <- i
-                group <- unique(dat.ring$Group)
-                target <- unique(dat.ring$Target)
-                experiment <- unique(dat.ring$Experiment)
-                channel <- unique(dat.ring$Channel)
-                data.frame(i, group, target, time1.val,
+                group <- unique(ringDat$Group)
+                target <- unique(ringDat$Target)
+                experiment <- unique(ringDat$Experiment)
+                channel <- unique(ringDat$Channel)
+                tmp <- data.frame(i, group, target, time1.val,
                            time2.val, experiment, channel, step)
+                tmp$target <- as.character(tmp$target)
+                tmp
         })
 
-        # renames dat.rings columns
-        dat.rings <- dplyr::bind_rows(dat.rings)
-        names(dat.rings) <- c("Ring", "Group", "Target", "Shift.1", "Shift.2",
+        # renames shiftPoints columns
+        shiftPoints <- dplyr::bind_rows(shiftPoints)
+        names(shiftPoints) <- c("Ring", "Group", "Target", "Shift.1", "Shift.2",
                               "Experiment", "Channel", "Step")
 
         # calculate nat shift and create new column in dataframe
-        dat.rings <- dplyr::mutate(dat.rings, NetShift = Shift.1 - Shift.2)
+        shiftPoints <- dplyr::mutate(shiftPoints, NetShift = Shift.1 - Shift.2)
+
+        cntl <- unique(data$Cntl)
+        ch <- unique(data$Ch)
 
         # save net shift data
-        readr::write_csv(dat.rings, paste0(loc, "/", name, "_netShifts_", cntl,
+        readr::write_csv(shiftPoints, paste0(loc, "/", name, "_netShifts_", cntl,
                                     "cntl_", "ch", ch, "_step", step, ".csv"))
 }

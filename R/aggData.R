@@ -28,7 +28,7 @@ aggData <- function(loc = "plots", filename = "groupNames_allClusters.csv",
         }
 
         # read in recipe/chip layout
-        recipe <- readr::read_csv(filename)
+        recipe <- read.csv(filename)
         colnames(recipe)[1] <- "Target" # rename col & remove byte order mark
         targets <- recipe$Target
 
@@ -70,11 +70,13 @@ aggData <- function(loc = "plots", filename = "groupNames_allClusters.csv",
 
         # renames columns in df
         names(df) <- c("Time", "Shift", "Ring", "Group", "Target", "Channel",
-                       "Experiment", "Time Point")
+                       "Experiment", "TimePoint")
 
         # creates "plots" directory
         dir.create(loc, showWarnings = FALSE)
 
         # saves aggregated data with name_allRings.csv
         readr::write_csv(df, paste0(loc, '/', name, "_allRings.csv"))
+
+        return(df)
 }
