@@ -10,7 +10,7 @@ calibrationStation <- function(celebrate = TRUE) {
         directory <- getwd()
         lapply(foldersList, function(i){
                 setwd(i)
-                analyzeCalMRRData()
+                analyzeBiosensorCalData()
                 setwd(directory)
         })
         x <- combineNetShifts()

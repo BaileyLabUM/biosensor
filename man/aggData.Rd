@@ -8,12 +8,6 @@ aggData(loc = "plots", filename = "groupNames_allClusters.csv",
   fsr = FALSE, fsrThresh = 5980)
 }
 \arguments{
-\item{loc}{a string with directory name to save plots and data files}
-
-\item{filename}{a string with the filename containing the chip layout}
-
-\item{fsr}{a logical value indicating whether the data contains FSR shifts}
-
 \item{fsrThresh}{a numerical value specifying the minimum difference
 between two time points to be considered an FSF shift}
 }

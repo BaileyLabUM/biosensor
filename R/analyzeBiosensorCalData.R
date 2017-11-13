@@ -39,11 +39,9 @@
 #'                          loc = "plots", fsr = TRUE,
 #'                          chkRings = TRUE, plotData = TRUE,
 #'                          celebrate = FALSE)}
-#'
-#' @export
-#'
 
-analyzeCalMRRData <- function(time1 = 52, time2 = 41,
+
+analyzeBiosensorCalData <- function(time1 = 52, time2 = 41,
                         filename = "groupNames_XPP.csv",
                         loc = "plots",
                         fsr = TRUE,

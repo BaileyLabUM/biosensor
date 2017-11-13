@@ -1,16 +1,19 @@
-#' Process M1 Raw Data
+#' Process Raw Biosensor Data
 #'
 #' The purpose of this program is to process with the raw data from the
 #' Maverick M1 detection system (Genalyte, Inc., San Diego, CA) and output
-#' simple line graphs, bar charts, and box plots. The functions also generate
-#' companion csv files containning processed the prcoessed data for subsequent
-#' analysis. The folder containing output from the M1 typically consists of:
+#' simple line graphs, bar charts, and box plots. In principle, this code should
+#' also work for any bionsensor data that ouputs Time in column one and Signal
+#' in column two. The function call also generates companion csv files
+#' containning processed the prcoessed data for subsequent analysis.
+#' The folder containing output from the M1 typically consists of:
 #'    1. a csv file for each ring and
 #'    2. a comments file the describes the experimental run
-#' The comments file is not needed for this program. In addition to the csv
-#' files for each ring, a separate file containing the chip layout is required.
-#' An example of a chip layout file is provided in the "BaileyLabMRRs"
-#' repository located at https://github.com/BaileyLabUM/BaileyLabMRRs. See the
+#' A "comments.csv" file is also exported, but it is not needed.
+#' In addition to the csv files for each ring, a separate file containing the
+#' chip layout is required. An example of a chip layout file is provided in the
+#' "BaileyLabMRRs" repository located at
+#' https://github.com/BaileyLabUM/BaileyLabMRRs. See the
 #' "groupNames_allClusters.csv" file for an example.
 #'
 #' @param time1 a number specifying the later time for net shift calculations
@@ -44,7 +47,7 @@
 #' @export
 #'
 
-analyzeMRRData <- function(time1 = 51, time2 = 39,
+analyzeBiosensorData <- function(time1 = 51, time2 = 39,
                         filename = "groupNames_XPP.csv",
                         loc = "plots",
                         fsr = FALSE,

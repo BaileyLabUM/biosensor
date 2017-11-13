@@ -4,7 +4,7 @@
 
 ## Introduction
 
-The purpose of this program is to process with the raw data from the
+The purpose of this library is to process with the raw data from the
 Maverick M1 detection system (Genalyte, Inc., San Diego, CA) and output simple
 line graphs, bar charts, and box plots. The functions also generate companion
 csv files containning processed the prcoessed data for subsequent analysis.
@@ -16,9 +16,14 @@ The folder containing output from the M1 typically consists of:
 
 The comments file is not needed for this program. In addition to the csv files
 for each ring, a separate file containing the chip layout is required. An
-example of a chip layout file is provided in the "BaileyLabMRRs" repository
-located at https://github.com/BaileyLabUM/BaileyLabMRRs. See
-"groupNames_allClusters.csv" for an example.
+example of a chip layout file is provided in the sample data. To access this 
+data, execute the following code:
+```{r}
+library(biosensor)
+dir <- setwd(system.file("extdata", "sampleChipLayout", package = "biosensor"))
+example <- read.csv("groupNames_Example.csv")
+View(example)
+```
 
 Note: This version of the software is optimized for the Bailey lab's HRP
 assay. See dx.doi.org/10.1021/acscentsci.5b00250 for a description. However,
@@ -50,16 +55,19 @@ devtools::install_github("BaileyLabUM/biosensor")
 
 The functions within this library include:
 
-1. analyzeMRRData
-2. aggData
-3. calibrationStation
-4. aggCalData
-5. analyzeCalMRRData
+1. `analyzeBiosensorData` - This function processes raw data from a single 
+biosensor experiment and outputs simple line graphs, bar charts, and box plots.
+In principle, this code should also work for any bionsensor data that ouputs
+Time in column one and Signal in column two. The function call also generates
+companion csv files containning processed the prcoessed data for subsequent 
+analysis.
+2. `calibrationStation` - This function processes a series of experiments 
+using the `analyzeBiosensorData` function. Then, the data from each experiment
+is combined to generate a calibration curve for each target of interest.
 
-### To use the program:
+### To use `analyzeBiosensorData`:
 
-1. Ensure the you have the necessary libraries installed. See note above for 
-instructions on installing libraries.
+1. Ensure the you have the necessary libraries installed and up to date.
 
 2. Copy the chip layout file (e.g., "groupNames_XPP.csv") into the directory
 containing the raw ring data you wish to analyze.
@@ -76,18 +84,20 @@ folder, you could set your working directory by executing the following line
 in the console: 
 `setwd("C:/Users/USERNAME/Desktop/CHIPNAME_gaskGASKNAME_DATE")`.
 
-4. Execute the code by running the analyzeMRRData function. This function 
-requires 5 input variable:
-    1. **time1** - a number specifying the later time for net shift calculations
-    2. **time2** - a number specifying the earlier time for net shift calculations
+4. Execute the code by running the `analyzeBiosensorData` function. This 
+function requires 5 input variable:
+    1. **time1** - a number specifying the later time for net shift 
+    calculations
+    2. **time2** - a number specifying the earlier time for net shift 
+    calculations
     3. **filename** - a string with the filename containing the chip layout
     4. **loc** - a string with directory name to save plots and data files
     5. **fsr** - a logical value indicating whether the data contains FSR shifts
     6. **chkRings** -  a logical value indicating if rings should be removed
-    7. **plotData** - a logical value indicating if data should be plotted, which
-    will save a series of png files
-    8. **celebrate** - a logical value, set it to TRUE for to be alerted when your
-    script has finished
+    7. **plotData** - a logical value indicating if data should be plotted, 
+    which will save a series of png files
+    8. **celebrate** - a logical value, set it to TRUE for to be alerted when
+    your script has finished
     
     Note: to calculate net shift measurements, the relative shift at *time2 is 
     subtracted from time1* (netshift = time1 - time2).  
@@ -97,7 +107,7 @@ Here is an example of code to run:
 library(biosensor)
 setwd("C:/Users/USERNAME/Desktop/CHIPNAME_gaskGASKNAME_DATE")
 #  this will run with code defaults
-analyzeData()
+analyzeBiosensorData()
 ```
 
 To see an example with data provided as part of this library execute the 
@@ -107,5 +117,23 @@ following code:
 library(biosensor)
 dir <- system.file("extdata", "20171112_gaskTestData_MRR", package = "biosensor")
 setwd(dir)
-analyzeMRRData()
+analyzeBiosensorData()
+```
+
+### To use `calibrationStation`:
+
+1. Set the working directory to a directory containing experiments for your
+calibration curve.
+    Note: Each experiment should be in its own subdirectory.
+2. Load the library and run the `calibrationStation` function. The function
+has a single input variable:
+    1. **celebrate** - a logical value, set it to TRUE for to be alerted when
+    your script has finished
+
+Here is an example of code to run:
+
+```{r}
+library(biosensor)
+setwd("C:/Users/USERNAME/Desktop/CalibrationData")
+calibrationStation(celebrate = TRUE)
 ```

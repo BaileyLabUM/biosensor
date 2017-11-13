@@ -12,8 +12,6 @@
 #' named "NAME_allRings.csv", where NAME is defined using the main directory
 #' name. If the main directory has is names "20171112_gaskTestData_MRR",
 #' then the output file will be named "TestData_allRings.csv".
-#'
-#' @export
 
 aggData <- function(loc = "plots", filename = "groupNames_allClusters.csv",
                     fsr = FALSE, fsrThresh = 5980) {
