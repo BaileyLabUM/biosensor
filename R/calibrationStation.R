@@ -1,10 +1,8 @@
 #' Calibration Station
 #'
-#' @inheritParams analyzeMRRData
-#'
 #' Analyze series of runs on M1 and generate calibration curves for each target
 #'
-#'
+#' @inheritParams analyzeMRRData
 #'
 #' @export
 calibrationStation <- function(celebrate = TRUE) {

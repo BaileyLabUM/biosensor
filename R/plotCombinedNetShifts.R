@@ -15,8 +15,8 @@ plotCombinedNetShifts <- function(data){
 
         plot1 <- plot + ggplot2::geom_point()
         plot1a <- plot1 + ggplot2::facet_wrap(~Target)
-        plot2 <- plot + ggplot2::geom_boxplot()
-        plot2a <- plot2 + ggplot2::facet_wrap(~Target)
+        plot2 <- plot + ggplot2::geom_boxplot() +
+                ggplot2::facet_wrap(~Target)
 
         ggplot2::ggsave(plot = plot1,
                         filename = paste0("netShiftsCombined_point.png"),
@@ -26,8 +26,5 @@ plotCombinedNetShifts <- function(data){
                         width = 16, height = 12)
         ggplot2::ggsave(plot = plot2,
                         filename = paste0("netShiftsCombined_box.png"),
-                        width = 16, height = 12)
-        ggplot2::ggsave(plot = plot2a,
-                        filename = paste0("netShiftsCombined_boxwrap.png"),
                         width = 16, height = 12)
 }
