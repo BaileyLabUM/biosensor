@@ -1,5 +1,7 @@
 # biosensor - A Library for Biosensor Data Analysis
+
 ***
+
 ## Introduction
 
 The purpose of this program is to process with the raw data from the
@@ -84,14 +86,8 @@ Here is an example of code to run:
 ```{r}
 library(biosensor)
 setwd("C:/Users/USERNAME/Desktop/CHIPNAME_gaskGASKNAME_DATE")
-analyzeData(filename = "groupNames_XPP.csv",
-            time1 = 51,
-            time2 = 39,
-            loc = "plots",
-            fsr = FALSE, 
-            chkRings = FALSE,
-            plotData = TRUE,
-            celebrate = TRUE)
+#  this will run with code defaults
+analyzeData()
 ```
 
 To see an example with data provided as part of this library execute the 
@@ -101,13 +97,5 @@ following code:
 library(biosensor)
 dir <- system.file("extdata", "20171112_gaskTestData_MRR", package = "biosensor")
 setwd(dir)
-analyzeMRRData(time1 = 51, time2 = 39,
-               filename = "groupNames_XPP.csv",
-               loc = "plots", fsr = FALSE,
-               chkRings = FALSE, plotData = FALSE, celebrate = FALSE)
-analyzeMRRData(time1 = 51, time2 = 39,
-               filename = "groupNames_XPP.csv",
-               loc = "plots", fsr = TRUE,
-               chkRings = TRUE, plotData = TRUE,
-               celebrate = FALSE)
+analyzeMRRData()
 ```

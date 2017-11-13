@@ -1,7 +1,10 @@
-checkRingQuality <- function(loc, time1, time2, nrings = 10) {
+checkRingQuality <- function(loc = "plots",
+                             chkTime1 = 5,
+                             chkTime2 = 10,
+                             nrings = 10) {
         # read in data and subset for a flat part of the run
         dat <- readr::read_csv(paste0(loc,"/", name, "_allRings.csv"))
-        dat <- subset(dat, Time > time1 & Time < time2)
+        dat <- subset(dat, Time > chkTime1 & Time < chkTime2)
 
         # fn to take absolute value of max signal
         absmax <- function(x) { x[which.max( abs(x) )]}

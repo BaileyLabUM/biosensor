@@ -1,4 +1,22 @@
-aggData <- function(loc, filename, fsr, fsrThresh = 3000) {
+#' Aggregate M1 Data Files
+#'
+#' The purpose of this function is to aggregate all the individual ring files
+#' into a single csv file. The function requires a chip layout file that
+#' specifies the identity of each ring sensor.
+#'
+#' @param fsrThresh a numerical value specifying the minimum difference
+#' between two time points to be considered an FSF shift
+#' @inheritParams analyzeMRRData
+#'
+#' @return The function outputs a single csv file in the `loc` directory and is
+#' named "NAME_allRings.csv", where NAME is defined using the main directory
+#' name. If the main directory has is names "20171112_gaskTestData_MRR",
+#' then the output file will be named "TestData_allRings.csv".
+#'
+#' @export
+
+aggData <- function(loc = "plots", filename = "groupNames_allClusters.csv",
+                    fsr = FALSE, fsrThresh = 5980) {
         # get information of chip layout from github repository
         if (!file.exists(filename)){
                 git <- "https://raw.githubusercontent.com/"
@@ -40,7 +58,6 @@ aggData <- function(loc, filename, fsr, fsrThresh = 3000) {
                         for(j in seq_len(nrow(df[[i]]))){
                                 shiftDiff <- pointShift - df[[i]][j, 2]
                                 if(shiftDiff > fsrThresh){
-                                        print("fuck, an fsr---kill it---got it")
                                         df[[i]][j, 2] <- df[[i]][j, 2] + 5980
                                 }
                                 pointShift <- df[[i]][j, 2]
