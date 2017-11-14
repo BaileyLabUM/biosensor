@@ -2,3 +2,4 @@
 
 export(analyzeBiosensorData)
 export(calibrationStation)
+export(compLabelNorm)

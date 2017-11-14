@@ -51,8 +51,9 @@ plotRingData <- function(data, raw = FALSE, loc, splitPlot = FALSE){
                                                           eval(ySD),
                                                   ymax = eval(yAxisAvg) +
                                                           eval(ySD),
-                                linetype = NA),
-                            fill = "slategrey", alpha = 1/8)
+                                                  linetype = NA,
+                                                  fill = Target),
+                                     alpha = 1/6)
 
         if (splitPlot){
                 plot1 <- plot1 + ggplot2::facet_grid(. ~ Channel)

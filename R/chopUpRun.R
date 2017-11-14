@@ -10,12 +10,15 @@
 #' @return Returns a data frame of the chopped up data, and it saves a csv file
 #' of this data.
 
-chopUpRun <- function(data, startRun){
-        subDat <- subset(data, Time > startRun)
+chopUpRun <- function(data, startRun, loc){
+        startLoc <- which(abs(data$Time - startRun) ==
+                                  min(abs(data$Time - startRun)))
+        startTP <- data$TimePoint[startLoc]
+        subDat <- subset(data, TimePoint > startTP)
+        subDat <- dplyr::group_by(subDat, Ring)
         subDat <- dplyr::mutate(subDat,
                          Shift = Shift - Shift[1],
                          Time = Time -Time[1])
-
         readr::write_csv(subDat,
                          path = paste0(loc, "/", name, "_allRings_chopped.csv"))
         return(subDat)

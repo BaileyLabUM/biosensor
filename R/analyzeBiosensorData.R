@@ -61,7 +61,9 @@ analyzeBiosensorData <- function(time1 = 51, time2 = 39,
         aggDat <- aggData(filename = filename, loc = loc, fsr = fsr,
                           getLayoutFile = getLayoutFile)
 
-        if(chopRun){aggDat <- chopUpRun(data = aggDat, startRun = startRun)}
+        if(chopRun){aggDat <- chopUpRun(data = aggDat,
+                                        startRun = startRun,
+                                        loc = loc)}
 
         channels <- unique(aggDat$Channel)
         if(1 %in% channels){
