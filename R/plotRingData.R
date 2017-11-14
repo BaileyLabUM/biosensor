@@ -6,10 +6,12 @@ plotRingData <- function(data, raw = FALSE, loc, splitPlot = FALSE){
         if(raw){
                 yAxis <- as.symbol("Shift")
                 yAxisAvg <- as.symbol("Shift_mean")
+                ySD <- as.symbol("Shift_sd")
                 cntl <- "Raw"
         } else {
                 yAxis <- as.symbol("Corrected")
                 yAxisAvg <- as.symbol("Corrected_mean")
+                ySD <- as.symbol("Corrected_sd")
                 cntl <- unique(data$Cntl)
         }
         ch <- unique(data$Ch)
@@ -45,8 +47,10 @@ plotRingData <- function(data, raw = FALSE, loc, splitPlot = FALSE){
                                        cntl, sep = " "))
 
         plot3 <- plot2 +
-                ggplot2::geom_ribbon(ggplot2::aes(ymin = Shift_mean - Shift_sd,
-                                ymax = Shift_mean + Shift_sd,
+                ggplot2::geom_ribbon(ggplot2::aes(ymin = eval(yAxisAvg) -
+                                                          eval(ySD),
+                                                  ymax = eval(yAxisAvg) +
+                                                          eval(ySD),
                                 linetype = NA),
                             fill = "slategrey", alpha = 1/8)
 

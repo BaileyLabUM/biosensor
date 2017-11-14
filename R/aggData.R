@@ -6,29 +6,30 @@
 #'
 #' @param fsrThresh a numerical value specifying the minimum difference
 #' between two time points to be considered an FSF shift
-#' @inheritParams analyzeMRRData
+#' @inheritParams analyzeBiosensorData
 #'
 #' @return The function outputs a single csv file in the `loc` directory and is
 #' named "NAME_allRings.csv", where NAME is defined using the main directory
 #' name. If the main directory has is names "20171112_gaskTestData_MRR",
 #' then the output file will be named "TestData_allRings.csv".
 
-aggData <- function(loc = "plots", filename = "groupNames_allClusters.csv",
+aggData <- function(loc = "plots", getLayoutFile = FALSE,
+                    filename = "groupNames_allClusters.csv",
                     fsr = FALSE, fsrThresh = 5980) {
         # get information of chip layout from github repository
-        if (!file.exists(filename)){
+        if (getLayoutFile){
                 git <- "https://raw.githubusercontent.com/"
                 hub <- "JamesHWade/XenograftProteinProfiling/master/"
                 github <- paste0(git, hub)
                 url <- paste0(github, filename)
                 filename <- basename(url)
                 utils::download.file(url, filename)
-        }
+        } else { filename <- grep("groupNames",
+                                  list.files(pattern = ".csv"),
+                                  value = TRUE) }
 
         # read in recipe/chip layout
         recipe <- read.csv(filename)
-        colnames(recipe)[1] <- "Target" # rename col & remove byte order mark
-        targets <- recipe$Target
 
         # generate list of rings to analyze (gets all *.csv files)
         rings <- list.files(pattern = "[[:digit:]].csv",

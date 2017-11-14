@@ -8,7 +8,7 @@
 #' between two time points to be considered an FSF shift
 #' @param getLayoutFile a logical value specifying if the layout file should be
 #' downloaded from Github; if you made your own layout file, leave as FALSE
-#' @inheritParams analyzeMRRData
+#' @inheritParams analyzeBiosensorData
 #'
 #' @return The function outputs a single csv file in the `loc` directory and is
 #' named "NAME_allRings.csv", where NAME is defined using the main directory

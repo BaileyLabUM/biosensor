@@ -26,6 +26,10 @@
 #' will save a series of png files
 #' @param celebrate a logical value, set it to TRUE for to be alerted when your
 #' script has finished
+#' @param netShifts a logical value indicating if net shift values should be
+#' calculated and plotted
+#' @param getLayoutFile a logical value indicating if the chip layout file
+#' should be downloaded from Github
 #'
 #' @return This function returns csv files containing processed data along with
 #' a number of png files containing plots of the processed data.
@@ -34,15 +38,7 @@
 #' dir <- system.file("extdata", "20171112_gaskTestData_MRR",
 #'                    package = "biosensor")
 #' setwd(dir)
-#' analyzeMRRData(time1 = 51, time2 = 39,
-#'                filename = "groupNames_XPP.csv",
-#'                loc = "plots", fsr = FALSE,
-#'                chkRings = FALSE, plotData = FALSE, celebrate = FALSE)
-#' \donttest{analyzeMRRData(time1 = 51, time2 = 39,
-#'                          filename = "groupNames_XPP.csv",
-#'                          loc = "plots", fsr = TRUE,
-#'                          chkRings = TRUE, plotData = TRUE,
-#'                          celebrate = FALSE)}
+#' analyzeBiosensorData()
 #'
 #' @export
 #'
@@ -53,52 +49,74 @@ analyzeBiosensorData <- function(time1 = 51, time2 = 39,
                         fsr = FALSE,
                         chkRings = FALSE,
                         plotData = TRUE,
-                        celebrate = TRUE) {
+                        celebrate = FALSE,
+                        netShifts = TRUE,
+                        getLayoutFile = TRUE) {
         getName()
-        aggDat <- aggData(filename = filename, loc = loc, fsr = fsr)
-        subDat_ch1 <- subtractControl(data = aggDat,
-                                      ch = 1,
-                                      cntl = "thermal",
-                                      loc = loc)
-        subDat_ch2 <- subtractControl(data = aggDat,
-                                      ch = 2,
-                                      cntl = "thermal",
-                                      loc = loc)
+        aggDat <- aggData(filename = filename, loc = loc, fsr = fsr,
+                          getLayoutFile = getLayoutFile)
+        channels <- unique(aggDat$Channel)
+        if(1 %in% channels){
+                subDat_ch1 <- subtractControl(data = aggDat,
+                                              ch = 1,
+                                              cntl = "thermal",
+                                              loc = loc)
+        }
+        if(2 %in% channels){
+                subDat_ch2 <- subtractControl(data = aggDat,
+                                              ch = 2,
+                                              cntl = "thermal",
+                                              loc = loc)
+        }
         subDat_chU <- subtractControl(data = aggDat,
                                       ch = "U",
                                       cntl = "thermal",
                                       loc = loc)
 
-        netDat_ch1 <- getNetShifts(data = subDat_ch1,
-                                   time1 = time1,
-                                   time2 = time2,
-                                   step = 1,
-                                   loc = loc)
-        netDat_ch2 <- getNetShifts(data = subDat_ch2,
-                                   time1 = time1,
-                                   time2 = time2,
-                                   step = 1,
-                                   loc = loc)
-
         if(plotData){
-                plotRingData(data = subDat_chU,
-                             splitPlot = FALSE,
-                             loc = loc,
-                             raw = TRUE)
-                plotRingData(data = subDat_chU,
-                             splitPlot = TRUE,
-                             loc = loc,
-                             raw = FALSE)
-                plotRingData(data = subDat_ch1,
-                             splitPlot = FALSE,
-                             loc = loc,
-                             raw = FALSE)
-                plotRingData(data = subDat_ch2,
-                             splitPlot = FALSE,
-                             loc = loc,
-                             raw = FALSE)
-                plotNetShifts(data = netDat_ch1, step = 1, loc = loc)
-                plotNetShifts(data = netDat_ch2, step = 1, loc = loc)
+                if(exists("subDat_chU")){
+                        plotRingData(data = subDat_chU,
+                                     splitPlot = FALSE,
+                                     loc = loc,
+                                     raw = TRUE)
+                        plotRingData(data = subDat_chU,
+                                     splitPlot = TRUE,
+                                     loc = loc,
+                                     raw = FALSE)
+                }
+
+                if(exists("subDat_ch1")){
+                        plotRingData(data = subDat_ch1,
+                                     splitPlot = FALSE,
+                                     loc = loc,
+                                     raw = FALSE)
+                }
+
+                if(exists("subDat_ch2")){
+                        plotRingData(data = subDat_ch2,
+                                     splitPlot = FALSE,
+                                     loc = loc,
+                                     raw = FALSE)
+                }
+        }
+
+        if(netShifts){
+                if(exists("subDat_ch1")){
+                        netDat_ch1 <- getNetShifts(data = subDat_ch1,
+                                                   time1 = time1,
+                                                   time2 = time2,
+                                                   step = 1,
+                                                   loc = loc)
+                        plotNetShifts(data = netDat_ch1, step = 1, loc = loc)
+                }
+                if(exists("subDat_ch2")){
+                        netDat_ch2 <- getNetShifts(data = subDat_ch2,
+                                                   time1 = time1,
+                                                   time2 = time2,
+                                                   step = 1,
+                                                   loc = loc)
+                        plotNetShifts(data = netDat_ch2, step = 1, loc = loc)
+                }
         }
 
         if (chkRings){

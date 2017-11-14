@@ -30,11 +30,11 @@
 #' @examples
 #' dir <- system.file("extdata", "20171112_gaskTestData_MRR", package = "biosensor")
 #' setwd(dir)
-#' analyzeMRRData(time1 = 51, time2 = 39,
+#' analyzeBiosensorData(time1 = 51, time2 = 39,
 #'                filename = "groupNames_XPP.csv",
 #'                loc = "plots", fsr = FALSE,
 #'                chkRings = FALSE, plotData = FALSE, celebrate = FALSE)
-#' \donttest{analyzeMRRData(time1 = 51, time2 = 39,
+#' \donttest{analyzeBiosensorData(time1 = 51, time2 = 39,
 #'                          filename = "groupNames_XPP.csv",
 #'                          loc = "plots", fsr = TRUE,
 #'                          chkRings = TRUE, plotData = TRUE,
@@ -42,7 +42,7 @@
 
 
 analyzeBiosensorCalData <- function(time1 = 52, time2 = 41,
-                        filename = "groupNames_XPP.csv",
+                        filename = "groupNames_allClusters.csv",
                         loc = "plots",
                         fsr = TRUE,
                         chkRings = FALSE,

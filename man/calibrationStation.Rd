@@ -6,6 +6,10 @@
 \usage{
 calibrationStation(celebrate = TRUE)
 }
+\arguments{
+\item{celebrate}{a logical value, set it to TRUE for to be alerted when your
+script has finished}
+}
 \description{
 Analyze series of runs on M1 and generate calibration curves for each target
 }
