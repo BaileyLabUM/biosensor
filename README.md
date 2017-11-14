@@ -85,7 +85,7 @@ in the console:
 `setwd("C:/Users/USERNAME/Desktop/CHIPNAME_gaskGASKNAME_DATE")`.
 
 4. Execute the code by running the `analyzeBiosensorData` function. This 
-function requires 5 input variable:
+function requires 12 input variables:
     1. **time1** - a number specifying the later time for net shift 
     calculations
     2. **time2** - a number specifying the earlier time for net shift 
@@ -98,6 +98,13 @@ function requires 5 input variable:
     which will save a series of png files
     8. **celebrate** - a logical value, set it to TRUE for to be alerted when
     your script has finished
+    9. **netShifts** - a logical value indicating if net shift values should be
+    calculated and plotted
+    10. **getLayoutFile** - a logical value indicating if the chip layout file
+    should be downloaded from Github
+    11. **chopRun** a logical value indicating if run should be subsetted
+    12. **startRun** the numerical value on where to start the run, only used if
+    chopRun is TRUE
     
     Note: to calculate net shift measurements, the relative shift at *time2 is 
     subtracted from time1* (netshift = time1 - time2).  
