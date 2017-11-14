@@ -30,6 +30,9 @@
 #' calculated and plotted
 #' @param getLayoutFile a logical value indicating if the chip layout file
 #' should be downloaded from Github
+#' @param chopRun a logical value indicating if run should be subsetted
+#' @param startRun the numerical value on where to start the run, only used if
+#' chopRun is TRUE
 #'
 #' @return This function returns csv files containing processed data along with
 #' a number of png files containing plots of the processed data.
@@ -46,6 +49,8 @@
 analyzeBiosensorData <- function(time1 = 51, time2 = 39,
                         filename = "groupNames_XPP.csv",
                         loc = "plots",
+                        chopRun = FALSE,
+                        startRun = 10,
                         fsr = FALSE,
                         chkRings = FALSE,
                         plotData = TRUE,
@@ -55,6 +60,9 @@ analyzeBiosensorData <- function(time1 = 51, time2 = 39,
         getName()
         aggDat <- aggData(filename = filename, loc = loc, fsr = fsr,
                           getLayoutFile = getLayoutFile)
+
+        if(chopRun){aggDat <- chopUpRun(data = aggDat, startRun = startRun)}
+
         channels <- unique(aggDat$Channel)
         if(1 %in% channels){
                 subDat_ch1 <- subtractControl(data = aggDat,

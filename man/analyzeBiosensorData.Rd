@@ -5,9 +5,9 @@
 \title{Process Raw Biosensor Data}
 \usage{
 analyzeBiosensorData(time1 = 51, time2 = 39,
-  filename = "groupNames_allClusters.csv", loc = "plots", fsr = FALSE,
-  chkRings = FALSE, plotData = TRUE, celebrate = TRUE, netShifts = TRUE,
-  getLayoutFile = TRUE)
+  filename = "groupNames_XPP.csv", loc = "plots", chopRun = FALSE,
+  startRun = 10, fsr = FALSE, chkRings = FALSE, plotData = TRUE,
+  celebrate = FALSE, netShifts = TRUE, getLayoutFile = TRUE)
 }
 \arguments{
 \item{time1}{a number specifying the later time for net shift calculations}
@@ -17,6 +17,11 @@ analyzeBiosensorData(time1 = 51, time2 = 39,
 \item{filename}{a string with the filename containing the chip layout}
 
 \item{loc}{a string with directory name to save plots and data files}
+
+\item{chopRun}{a logical value indicating if run should be subsetted}
+
+\item{startRun}{the numerical value on where to start the run, only used if
+chopRun is TRUE}
 
 \item{fsr}{a logical value indicating whether the data contains FSR shifts}
 
