@@ -61,6 +61,13 @@ analyzeBiosensorData <- function(time1 = 51,
                                  netShifts = TRUE,
                                  getLayoutFile = FALSE,
                                  uchannel = FALSE) {
+
+        # set theme for all plots
+        plotTheme <- ggplot2::theme_bw(base_size = 16) +
+                ggplot2::theme(panel.grid = ggplot2::element_blank())
+
+        ggplot2::theme_set(plotTheme)
+
         name <- getName()
         dat <- aggData(filename = filename, loc = loc, fsr = fsr,
                        getLayoutFile = getLayoutFile, name = name)

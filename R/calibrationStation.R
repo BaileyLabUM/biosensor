@@ -3,6 +3,9 @@
 #' Analyze series of runs on M1 and generate calibration curves for each target
 #'
 #' @inheritParams analyzeBiosensorData
+#' @param party a logical value that alerts you when your runs is done when TRUE
+#' @param calibrate a logical value indicating if data shoudl be fit to logistic
+#' function as calibration curve
 #'
 #' @export
 calibrationStation <- function(time1 = 51,
@@ -20,6 +23,13 @@ calibrationStation <- function(time1 = 51,
                                netShifts = TRUE,
                                uchannel = FALSE,
                                party = TRUE) {
+
+        # set theme for all plots
+        plotTheme <- ggplot2::theme_bw(base_size = 16) +
+                ggplot2::theme(panel.grid = ggplot2::element_blank())
+
+        ggplot2::theme_set(plotTheme)
+
         foldersList <- list.dirs(recursive = FALSE)
         directory <- getwd()
         lapply(foldersList, function(i){

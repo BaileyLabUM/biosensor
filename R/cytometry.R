@@ -1,6 +1,6 @@
 cytometry <- function(data){
         dir.create("Cytometry", showWarnings = FALSE)
-        rxDat <- filter(data, !grepl("Serum", Treatment))
+        rxDat <- dplyr::filter(data, !grepl("Serum", Treatment))
         pairList <- t(combn(unique(data$Target), 2))
         for(i in seq_len(nrow(pairList))){
                 cytDat <- dplyr::filter(rxDat, Target %in% pairList[i, ])

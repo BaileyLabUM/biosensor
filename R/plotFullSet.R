@@ -1,37 +1,42 @@
 ## Plot all data combined
 plotFullSet <- function(data){
-        g <- ggplot(data, aes(x = Target, y = NormLog))
+        g <- ggplot2::ggplot(data, ggplot2::aes(x = Target, y = NormLog))
 
         allPoint <- g +
-                geom_point(aes(color = factor(TimePoint)),
+                ggplot2::geom_point(ggplot2::aes(color = factor(TimePoint)),
                            position = "jitter", alpha = 0.7) +
-                facet_grid(Treatment ~ CellLine) +
-                theme(axis.text.x = element_text(angle = 45, hjust = 1),
-                      legend.position = "bottom") +
-                ggtitle("Full Dataset") +
-                labs(y = "Normalized Response", color = "Time Point")
+                ggplot2::facet_grid(Treatment ~ CellLine) +
+                ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45,
+                                                                   hjust = 1),
+                               legend.position = "bottom") +
+                ggplot2::ggtitle("Full Dataset") +
+                ggplot2::labs(y = "Normalized Response", color = "Time Point")
 
-        ggsave(allPoint, filename = "everything_point.png",
+        ggplot2::ggsave(allPoint, filename = "everything_point.png",
                width = 20, height = 12)
 
         allBoxplot <- g +
-                geom_boxplot(aes(fill = Treatment)) +
-                facet_grid(CellLine~TimePoint) +
-                theme(axis.text.x = element_text(angle = 45, hjust = 1),
-                      legend.position = "bottom") +
-                ggtitle("Full Dataset") +
-                ylab("Normalized Response")
+                ggplot2::geom_boxplot(ggplot2::aes(fill = Treatment)) +
+                ggplot2::facet_grid(CellLine~TimePoint) +
+                ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45,
+                                                                   hjust = 1),
+                               legend.position = "bottom") +
+                ggplot2::ggtitle("Full Dataset") +
+                ggplot2::labs(y = "Normalized Response")
 
-        ggsave(allBoxplot, filename = "everything_boxplot.png",
-               width = 20, height = 12)
+        ggplot2::ggsave(allBoxplot, filename = "everything_boxplot.png",
+                        width = 20, height = 12)
 
-        allTarget <- ggplot(data, aes(x = Treatment, y = NormLog)) +
-                geom_boxplot(aes(fill = interaction(TimePoint, CellLine))) +
-                facet_wrap(~Target) +
-                labs(y = "Normalized Response", fill = "") +
-                theme(axis.text.x = element_text(angle = 45, hjust = 1),
-                      legend.position = "bottom")
+        allTarget <- ggplot2::ggplot(data, ggplot2::aes(x = Treatment,
+                                                        y = NormLog)) +
+                ggplot2::geom_boxplot(ggplot2::aes(fill = interaction(TimePoint,
+                                                        CellLine))) +
+                ggplot2::facet_wrap(~Target) +
+                ggplot2::labs(y = "Normalized Response", fill = "") +
+                ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45,
+                                                                   hjust = 1),
+                               legend.position = "bottom")
 
-        ggsave(allTarget, filename = "everything_targetwrap.png",
-               width = 20, height = 12)
+        ggplot2::ggsave(allTarget, filename = "everything_targetwrap.png",
+                        width = 20, height = 12)
 }

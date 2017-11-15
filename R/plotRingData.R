@@ -1,7 +1,4 @@
 plotRingData <- function(data, raw = FALSE, loc, splitPlot = FALSE, name){
-        # set theme for all plots
-        ggplot2::theme_set(ggthemes::theme_few(base_size = 16))
-
         # assign parameters for plots and plot names
         if(raw){
                 yAxis <- as.symbol("Shift")

@@ -1,14 +1,17 @@
-## Run all of the above functions to generate plots
+#' Plot Everything
+#'
+#' Just run this to run everything
+#'
+#' @export
+
 plotDataRoutine <- function(){
-        # Load libraries and set theme for all plots
-        library(tidyverse)
-        library(biosensor)
-        # ggthemr::ggthemr(palette = "fresh")
-        plotTheme <- theme_bw(base_size = 16) +
-                theme(panel.grid = element_blank())
+        # set theme for all plots
+        plotTheme <- ggplot2::theme_bw(base_size = 16) +
+                ggplot2::theme(panel.grid = ggplot2::element_blank())
 
         ggplot2::theme_set(plotTheme)
 
+        # change working directory to data location
         setwd("D:/Box Sync/XPP_Data")
 
         # Load in data to make plots

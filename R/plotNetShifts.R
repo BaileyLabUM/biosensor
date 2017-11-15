@@ -1,6 +1,4 @@
 plotNetShifts <- function(data, loc, step = 1, name){
-        ggplot2::theme_set(ggthemes::theme_few(base_size = 16))
-
         ch <- unique(data$Channel)
         if(length(ch) > 1) {ch <- "U"}
         # configure plot and legend

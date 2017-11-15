@@ -18,6 +18,9 @@ calibrationStation(time1 = 51, time2 = 39, getLayoutFile = FALSE,
 \item{getLayoutFile}{a logical value indicating if the chip layout file
 should be downloaded from Github}
 
+\item{calibrate}{a logical value indicating if data shoudl be fit to logistic
+function as calibration curve}
+
 \item{filename}{a string with the filename containing the chip layout}
 
 \item{loc}{a string with directory name to save plots and data files}
@@ -42,6 +45,8 @@ script has finished}
 calculated and plotted}
 
 \item{uchannel}{a logical value indicating if experiment is a U-channel}
+
+\item{party}{a logical value that alerts you when your runs is done when TRUE}
 }
 \description{
 Analyze series of runs on M1 and generate calibration curves for each target
