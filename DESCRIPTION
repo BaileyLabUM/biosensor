@@ -8,5 +8,5 @@ Description: The purpose of this program is to process with the raw data from th
 License: GPL (>= 2)
 Encoding: UTF-8
 LazyData: true
-Imports: ggplot2, ggthemes, utils, stats, dplyr, readr, scales, broom
+Imports: ggplot2, ggthemes, utils, stats, dplyr, readr, scales, broom, reshape2, magrittr
 RoxygenNote: 6.0.1

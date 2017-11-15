@@ -2,7 +2,7 @@ plotNetShifts <- function(data, loc, step = 1){
         ggplot2::theme_set(ggthemes::theme_few(base_size = 16))
 
         ch <- unique(data$Channel)
-        cntl <- unique(data$Cntl)
+        if(length(ch) > 1) {ch <- "U"}
         # configure plot and legend
         plots <- ggplot2::ggplot(data,
                         ggplot2::aes(x = Target, y = NetShift, fill = Target)) +

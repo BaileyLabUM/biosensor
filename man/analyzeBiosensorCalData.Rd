@@ -45,16 +45,3 @@ example of a chip layout file is provided in the "BaileyLabMRRs" repository
 located at https://github.com/BaileyLabUM/BaileyLabMRRs. See the
 "groupNames_allClusters.csv" file for an example.
 }
-\examples{
-dir <- system.file("extdata", "20171112_gaskTestData_MRR", package = "biosensor")
-setwd(dir)
-analyzeBiosensorData(time1 = 51, time2 = 39,
-               filename = "groupNames_XPP.csv",
-               loc = "plots", fsr = FALSE,
-               chkRings = FALSE, plotData = FALSE, celebrate = FALSE)
-\donttest{analyzeBiosensorData(time1 = 51, time2 = 39,
-                         filename = "groupNames_XPP.csv",
-                         loc = "plots", fsr = TRUE,
-                         chkRings = TRUE, plotData = TRUE,
-                         celebrate = FALSE)}
-}

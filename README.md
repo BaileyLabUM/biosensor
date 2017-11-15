@@ -2,7 +2,7 @@
 
 ***
 
-## Introduction
+## biosensor
 
 The purpose of this library is to process with the raw data from the
 Maverick M1 detection system (Genalyte, Inc., San Diego, CA) and output simple
@@ -31,9 +31,9 @@ input variables can be altered to accomodate many alternative experiments.
 
 ***
 
-## Getting started
+## Installation
 
-### To get started, follow these steps:
+To get started, follow these steps:
 
 1. If you have not already done so, download and install R and RStudio. There 
 are many online tutorials available with instructions.
@@ -51,7 +51,7 @@ devtools::install_github("BaileyLabUM/biosensor")
 
 ***
 
-## Library Instructions
+## Usage
 
 The functions within this library include:
 

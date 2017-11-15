@@ -4,7 +4,7 @@
 \alias{chopUpRun}
 \title{Chop Up Run}
 \usage{
-chopUpRun(data, startRun)
+chopUpRun(data, startRun, loc)
 }
 \arguments{
 \item{data}{a dataframe containing at least two columns; the 1st is Time &
@@ -12,6 +12,8 @@ the second is Shift (signal from M1 Maverick Detection System)}
 
 \item{startRun}{the numerical value on where to start the run, only used if
 chopRun is TRUE}
+
+\item{loc}{a string with directory name to save plots and data files}
 }
 \value{
 Returns a data frame of the chopped up data, and it saves a csv file

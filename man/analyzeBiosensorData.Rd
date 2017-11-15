@@ -5,9 +5,9 @@
 \title{Process Raw Biosensor Data}
 \usage{
 analyzeBiosensorData(time1 = 51, time2 = 39,
-  filename = "groupNames_XPP.csv", loc = "plots", chopRun = FALSE,
-  startRun = 10, fsr = FALSE, chkRings = FALSE, plotData = TRUE,
-  celebrate = FALSE, netShifts = TRUE, getLayoutFile = TRUE)
+  filename = "groupNames_XPP.csv", loc = "plots", cntl = "thermal",
+  chopRun = 0, fsr = FALSE, chkRings = FALSE, plotData = TRUE,
+  celebrate = FALSE, netShifts = TRUE, getLayoutFile = FALSE)
 }
 \arguments{
 \item{time1}{a number specifying the later time for net shift calculations}
@@ -18,10 +18,11 @@ analyzeBiosensorData(time1 = 51, time2 = 39,
 
 \item{loc}{a string with directory name to save plots and data files}
 
-\item{chopRun}{a logical value indicating if run should be subsetted}
+\item{cntl}{a string indicating the target to be used for control; the
+default value is "thermal"; use "raw" if you do not want to use a control}
 
-\item{startRun}{the numerical value on where to start the run, only used if
-chopRun is TRUE}
+\item{chopRun}{the numerical value on where to start the run, and the data
+will only be "chopped" (subsetted) if `chopRun` > 0}
 
 \item{fsr}{a logical value indicating whether the data contains FSR shifts}
 

@@ -18,6 +18,8 @@
 #'
 #' @param time1 a number specifying the later time for net shift calculations
 #' @param time2 a number specifying the earlier time for net shift calculations
+#' @param cntl a string indicating the target to be used for control; the
+#' default value is "thermal"; use "raw" if you do not want to use a control
 #' @param filename a string with the filename containing the chip layout
 #' @param loc a string with directory name to save plots and data files
 #' @param fsr a logical value indicating whether the data contains FSR shifts
@@ -30,9 +32,8 @@
 #' calculated and plotted
 #' @param getLayoutFile a logical value indicating if the chip layout file
 #' should be downloaded from Github
-#' @param chopRun a logical value indicating if run should be subsetted
-#' @param startRun the numerical value on where to start the run, only used if
-#' chopRun is TRUE
+#' @param chopRun the numerical value on where to start the run, and the data
+#' will only be "chopped" (subsetted) if `chopRun` > 0
 #'
 #' @return This function returns csv files containing processed data along with
 #' a number of png files containing plots of the processed data.
@@ -49,38 +50,41 @@
 analyzeBiosensorData <- function(time1 = 51, time2 = 39,
                         filename = "groupNames_XPP.csv",
                         loc = "plots",
-                        chopRun = FALSE,
-                        startRun = 10,
+                        cntl = "thermal",
+                        chopRun = 0,
                         fsr = FALSE,
                         chkRings = FALSE,
                         plotData = TRUE,
                         celebrate = FALSE,
                         netShifts = TRUE,
-                        getLayoutFile = TRUE) {
+                        getLayoutFile = FALSE) {
         getName()
-        aggDat <- aggData(filename = filename, loc = loc, fsr = fsr,
+        dat <- aggData(filename = filename, loc = loc, fsr = fsr,
                           getLayoutFile = getLayoutFile)
 
-        if(chopRun){aggDat <- chopUpRun(data = aggDat,
-                                        startRun = startRun,
-                                        loc = loc)}
+        if(chopRun > 0){
+                aggDat <- chopUpRun(data = dat,
+                                    startRun = chopRun,
+                                    loc = loc)
+        } else {aggDat <- dat}
+
 
         channels <- unique(aggDat$Channel)
         if(1 %in% channels){
                 subDat_ch1 <- subtractControl(data = aggDat,
                                               ch = 1,
-                                              cntl = "thermal",
+                                              cntl = cntl,
                                               loc = loc)
         }
         if(2 %in% channels){
                 subDat_ch2 <- subtractControl(data = aggDat,
                                               ch = 2,
-                                              cntl = "thermal",
+                                              cntl = cntl,
                                               loc = loc)
         }
         subDat_chU <- subtractControl(data = aggDat,
                                       ch = "U",
-                                      cntl = "thermal",
+                                      cntl = cntl,
                                       loc = loc)
 
         if(plotData){
@@ -116,18 +120,35 @@ analyzeBiosensorData <- function(time1 = 51, time2 = 39,
                                                    time1 = time1,
                                                    time2 = time2,
                                                    step = 1,
-                                                   loc = loc)
-                        plotNetShifts(data = netDat_ch1, step = 1, loc = loc)
+                                                   loc = loc,
+                                                   cntl = cntl)
+                        plotNetShifts(data = netDat_ch1,
+                                      step = 1,
+                                      loc = loc)
                 }
                 if(exists("subDat_ch2")){
                         netDat_ch2 <- getNetShifts(data = subDat_ch2,
                                                    time1 = time1,
                                                    time2 = time2,
                                                    step = 1,
-                                                   loc = loc)
-                        plotNetShifts(data = netDat_ch2, step = 1, loc = loc)
+                                                   loc = loc,
+                                                   cntl = cntl)
+                        plotNetShifts(data = netDat_ch2,
+                                      step = 1,
+                                      loc = loc)
                 }
         }
+
+        netDat_chU <- getNetShifts(data = subDat_chU,
+                                   time1 = time1,
+                                   time2 = time2,
+                                   step = 1,
+                                   loc = loc,
+                                   cntl = cntl)
+        plotNetShifts(data = netDat_chU,
+                      step = 1,
+                      loc = loc)
+
 
         if (chkRings){
                 checkRingQuality(data = aggData,

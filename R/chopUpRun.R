@@ -6,6 +6,8 @@
 #' @inheritParams analyzeBiosensorData
 #' @param data a dataframe containing at least two columns; the 1st is Time &
 #' the second is Shift (signal from M1 Maverick Detection System)
+#' @param startRun the numerical value on where to start the run, only used if
+#' chopRun is TRUE
 #'
 #' @return Returns a data frame of the chopped up data, and it saves a csv file
 #' of this data.

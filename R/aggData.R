@@ -15,7 +15,8 @@
 
 aggData <- function(loc = "plots", getLayoutFile = FALSE,
                     filename = "groupNames_allClusters.csv",
-                    fsr = FALSE, fsrThresh = 5980) {
+                    fsr = FALSE, fsrThresh = 3000) {
+
         # get information of chip layout from github repository
         if (getLayoutFile){
                 git <- "https://raw.githubusercontent.com/"
@@ -43,6 +44,7 @@ aggData <- function(loc = "plots", getLayoutFile = FALSE,
                 tmp <- dat[,c(1,2)] # time and shift from raw data
                 tmp$ring <- ringNum
                 tmp$group <- recipe$Group[recipeCol]
+		tmp$conc <- recipe$Concentration[recipeCol]
                 tmp$groupName <- as.character(recipe$Target[[recipeCol]])
                 tmp$channel <- recipe$Channel[[recipeCol]]
                 tmp$run <- name
@@ -68,8 +70,8 @@ aggData <- function(loc = "plots", getLayoutFile = FALSE,
         df <- dplyr::bind_rows(df)
 
         # renames columns in df
-        names(df) <- c("Time", "Shift", "Ring", "Group", "Target", "Channel",
-                       "Experiment", "TimePoint")
+         names(df) <- c("Time", "Shift", "Ring", "Group", "Concentration",
+                       "Target", "Channel", "Experiment", "TimePoint")
 
         # creates "plots" directory
         dir.create(loc, showWarnings = FALSE)
