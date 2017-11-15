@@ -18,12 +18,19 @@ calibrationStation <- function(time1 = 51,
                                plotData = TRUE,
                                celebrate = FALSE,
                                netShifts = TRUE,
+                               uchannel = FALSE,
                                party = TRUE) {
         foldersList <- list.dirs(recursive = FALSE)
         directory <- getwd()
         lapply(foldersList, function(i){
                 setwd(i)
-                analyzeBiosensorData()
+                analyzeBiosensorData(time1 = time1, time2 = time2,
+                                     getLayoutFile = getLayoutFile,
+                                     filename = filename, loc = loc,
+                                     cntl = cntl, chopRun = chopRun,
+                                     fsr = fsr, chkRings = chkRings,
+                                     plotData = plotData, celebrate = celebrate,
+                                     netShifts = netShifts, uchannel = uchannel)
                 setwd(directory)
         })
 

@@ -34,6 +34,7 @@
 #' should be downloaded from Github
 #' @param chopRun the numerical value on where to start the run, and the data
 #' will only be "chopped" (subsetted) if `chopRun` > 0
+#' @param uchannel a logical value indicating if experiment is a U-channel
 #'
 #' @return This function returns csv files containing processed data along with
 #' a number of png files containing plots of the processed data.
@@ -47,17 +48,19 @@
 #' @export
 #'
 
-analyzeBiosensorData <- function(time1 = 51, time2 = 39,
-                        filename = "groupNames_XPP.csv",
-                        loc = "plots",
-                        cntl = "thermal",
-                        chopRun = 0,
-                        fsr = FALSE,
-                        chkRings = FALSE,
-                        plotData = TRUE,
-                        celebrate = FALSE,
-                        netShifts = TRUE,
-                        getLayoutFile = FALSE) {
+analyzeBiosensorData <- function(time1 = 51,
+                                 time2 = 39,
+                                 filename = "groupNames_XPP.csv",
+                                 loc = "plots",
+                                 cntl = "thermal",
+                                 chopRun = 0,
+                                 fsr = FALSE,
+                                 chkRings = FALSE,
+                                 plotData = TRUE,
+                                 celebrate = FALSE,
+                                 netShifts = TRUE,
+                                 getLayoutFile = FALSE,
+                                 uchannel = FALSE) {
         name <- getName()
         dat <- aggData(filename = filename, loc = loc, fsr = fsr,
                        getLayoutFile = getLayoutFile, name = name)
@@ -85,11 +88,13 @@ analyzeBiosensorData <- function(time1 = 51, time2 = 39,
                                               loc = loc,
                                               name = name)
         }
-        subDat_chU <- subtractControl(data = aggDat,
-                                      ch = "U",
-                                      cntl = cntl,
-                                      loc = loc,
-                                      name = name)
+        if(uchannel){
+                subDat_chU <- subtractControl(data = aggDat,
+                                              ch = "U",
+                                              cntl = cntl,
+                                              loc = loc,
+                                              name = name)
+        }
 
         if(plotData){
                 if(exists("subDat_chU")){
@@ -149,20 +154,20 @@ analyzeBiosensorData <- function(time1 = 51, time2 = 39,
                                       loc = loc,
                                       name = name)
                 }
+                if(exists("subDat_chU")){
+                        netDat_chU <- getNetShifts(data = subDat_chU,
+                                                   time1 = time1,
+                                                   time2 = time2,
+                                                   step = 1,
+                                                   loc = loc,
+                                                   cntl = cntl,
+                                                   name = name)
+                        plotNetShifts(data = netDat_chU,
+                                      step = 1,
+                                      loc = loc,
+                                      name = name)
+                }
         }
-
-        netDat_chU <- getNetShifts(data = subDat_chU,
-                                   time1 = time1,
-                                   time2 = time2,
-                                   step = 1,
-                                   loc = loc,
-                                   cntl = cntl,
-                                   name = name)
-        plotNetShifts(data = netDat_chU,
-                      step = 1,
-                      loc = loc,
-                      name = name)
-
 
         if (chkRings){
                 checkRingQuality(data = aggData,

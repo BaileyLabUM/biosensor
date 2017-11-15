@@ -4,11 +4,44 @@
 \alias{calibrationStation}
 \title{Calibration Station}
 \usage{
-calibrationStation(celebrate = TRUE)
+calibrationStation(time1 = 51, time2 = 39, getLayoutFile = FALSE,
+  calibrate = FALSE, filename = "groupNames_XPP.csv", loc = "plots",
+  cntl = "thermal", chopRun = 0, fsr = FALSE, chkRings = FALSE,
+  plotData = TRUE, celebrate = FALSE, netShifts = TRUE,
+  uchannel = FALSE, party = TRUE)
 }
 \arguments{
+\item{time1}{a number specifying the later time for net shift calculations}
+
+\item{time2}{a number specifying the earlier time for net shift calculations}
+
+\item{getLayoutFile}{a logical value indicating if the chip layout file
+should be downloaded from Github}
+
+\item{filename}{a string with the filename containing the chip layout}
+
+\item{loc}{a string with directory name to save plots and data files}
+
+\item{cntl}{a string indicating the target to be used for control; the
+default value is "thermal"; use "raw" if you do not want to use a control}
+
+\item{chopRun}{the numerical value on where to start the run, and the data
+will only be "chopped" (subsetted) if `chopRun` > 0}
+
+\item{fsr}{a logical value indicating whether the data contains FSR shifts}
+
+\item{chkRings}{a logical value indicating if rings should be removed}
+
+\item{plotData}{a logical value indicating if data should be plotted, which
+will save a series of png files}
+
 \item{celebrate}{a logical value, set it to TRUE for to be alerted when your
 script has finished}
+
+\item{netShifts}{a logical value indicating if net shift values should be
+calculated and plotted}
+
+\item{uchannel}{a logical value indicating if experiment is a U-channel}
 }
 \description{
 Analyze series of runs on M1 and generate calibration curves for each target

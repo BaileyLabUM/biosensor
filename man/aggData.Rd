@@ -5,7 +5,8 @@
 \title{Aggregate M1 Data Files}
 \usage{
 aggData(loc = "plots", getLayoutFile = FALSE,
-  filename = "groupNames_allClusters.csv", fsr = FALSE, fsrThresh = 5980)
+  filename = "groupNames_allClusters.csv", fsr = FALSE, fsrThresh = 3000,
+  name)
 }
 \arguments{
 \item{loc}{a string with directory name to save plots and data files}
@@ -19,6 +20,8 @@ should be downloaded from Github}
 
 \item{fsrThresh}{a numerical value specifying the minimum difference
 between two time points to be considered an FSF shift}
+
+\item{name}{a string for naming files}
 }
 \value{
 The function outputs a single csv file in the `loc` directory and is

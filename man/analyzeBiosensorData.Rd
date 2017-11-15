@@ -7,7 +7,8 @@
 analyzeBiosensorData(time1 = 51, time2 = 39,
   filename = "groupNames_XPP.csv", loc = "plots", cntl = "thermal",
   chopRun = 0, fsr = FALSE, chkRings = FALSE, plotData = TRUE,
-  celebrate = FALSE, netShifts = TRUE, getLayoutFile = FALSE)
+  celebrate = FALSE, netShifts = TRUE, getLayoutFile = FALSE,
+  uchannel = FALSE)
 }
 \arguments{
 \item{time1}{a number specifying the later time for net shift calculations}
@@ -39,6 +40,8 @@ calculated and plotted}
 
 \item{getLayoutFile}{a logical value indicating if the chip layout file
 should be downloaded from Github}
+
+\item{uchannel}{a logical value indicating if experiment is a U-channel}
 }
 \value{
 This function returns csv files containing processed data along with
