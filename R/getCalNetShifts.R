@@ -1,4 +1,4 @@
-getCalNetShifts <- function(data, loc, time1, time2, step = 1){
+getCalNetShifts <- function(data, loc, time1, time2, step = 1, name){
 
         # generate list of rings and empty dataframe to store net shift data
         ringList <- unique(data$Ring)

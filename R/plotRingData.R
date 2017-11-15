@@ -1,4 +1,4 @@
-plotRingData <- function(data, raw = FALSE, loc, splitPlot = FALSE){
+plotRingData <- function(data, raw = FALSE, loc, splitPlot = FALSE, name){
         # set theme for all plots
         ggplot2::theme_set(ggthemes::theme_few(base_size = 16))
 

@@ -6,6 +6,7 @@
 #'
 #' @param fsrThresh a numerical value specifying the minimum difference
 #' between two time points to be considered an FSF shift
+#' @param name a string for naming files
 #' @inheritParams analyzeBiosensorData
 #'
 #' @return The function outputs a single csv file in the `loc` directory and is
@@ -15,7 +16,7 @@
 
 aggData <- function(loc = "plots", getLayoutFile = FALSE,
                     filename = "groupNames_allClusters.csv",
-                    fsr = FALSE, fsrThresh = 3000) {
+                    fsr = FALSE, fsrThresh = 3000, name) {
 
         # get information of chip layout from github repository
         if (getLayoutFile){

@@ -58,14 +58,15 @@ analyzeBiosensorData <- function(time1 = 51, time2 = 39,
                         celebrate = FALSE,
                         netShifts = TRUE,
                         getLayoutFile = FALSE) {
-        getName()
+        name <- getName()
         dat <- aggData(filename = filename, loc = loc, fsr = fsr,
-                          getLayoutFile = getLayoutFile)
+                       getLayoutFile = getLayoutFile, name = name)
 
         if(chopRun > 0){
                 aggDat <- chopUpRun(data = dat,
                                     startRun = chopRun,
-                                    loc = loc)
+                                    loc = loc,
+                                    name = name)
         } else {aggDat <- dat}
 
 
@@ -74,43 +75,50 @@ analyzeBiosensorData <- function(time1 = 51, time2 = 39,
                 subDat_ch1 <- subtractControl(data = aggDat,
                                               ch = 1,
                                               cntl = cntl,
-                                              loc = loc)
+                                              loc = loc,
+                                              name = name)
         }
         if(2 %in% channels){
                 subDat_ch2 <- subtractControl(data = aggDat,
                                               ch = 2,
                                               cntl = cntl,
-                                              loc = loc)
+                                              loc = loc,
+                                              name = name)
         }
         subDat_chU <- subtractControl(data = aggDat,
                                       ch = "U",
                                       cntl = cntl,
-                                      loc = loc)
+                                      loc = loc,
+                                      name = name)
 
         if(plotData){
                 if(exists("subDat_chU")){
                         plotRingData(data = subDat_chU,
                                      splitPlot = FALSE,
                                      loc = loc,
-                                     raw = TRUE)
+                                     raw = TRUE,
+                                     name = name)
                         plotRingData(data = subDat_chU,
                                      splitPlot = TRUE,
                                      loc = loc,
-                                     raw = FALSE)
+                                     raw = FALSE,
+                                     name = name)
                 }
 
                 if(exists("subDat_ch1")){
                         plotRingData(data = subDat_ch1,
                                      splitPlot = FALSE,
                                      loc = loc,
-                                     raw = FALSE)
+                                     raw = FALSE,
+                                     name = name)
                 }
 
                 if(exists("subDat_ch2")){
                         plotRingData(data = subDat_ch2,
                                      splitPlot = FALSE,
                                      loc = loc,
-                                     raw = FALSE)
+                                     raw = FALSE,
+                                     name = name)
                 }
         }
 
@@ -121,10 +129,12 @@ analyzeBiosensorData <- function(time1 = 51, time2 = 39,
                                                    time2 = time2,
                                                    step = 1,
                                                    loc = loc,
-                                                   cntl = cntl)
+                                                   cntl = cntl,
+                                                   name = name)
                         plotNetShifts(data = netDat_ch1,
                                       step = 1,
-                                      loc = loc)
+                                      loc = loc,
+                                      name = name)
                 }
                 if(exists("subDat_ch2")){
                         netDat_ch2 <- getNetShifts(data = subDat_ch2,
@@ -132,10 +142,12 @@ analyzeBiosensorData <- function(time1 = 51, time2 = 39,
                                                    time2 = time2,
                                                    step = 1,
                                                    loc = loc,
-                                                   cntl = cntl)
+                                                   cntl = cntl,
+                                                   name = name)
                         plotNetShifts(data = netDat_ch2,
                                       step = 1,
-                                      loc = loc)
+                                      loc = loc,
+                                      name = name)
                 }
         }
 
@@ -144,17 +156,20 @@ analyzeBiosensorData <- function(time1 = 51, time2 = 39,
                                    time2 = time2,
                                    step = 1,
                                    loc = loc,
-                                   cntl = cntl)
+                                   cntl = cntl,
+                                   name = name)
         plotNetShifts(data = netDat_chU,
                       step = 1,
-                      loc = loc)
+                      loc = loc,
+                      name = name)
 
 
         if (chkRings){
                 checkRingQuality(data = aggData,
                                  chkTime1 = 20,
                                  chkTime2 = 30,
-                                 loc = loc)}
+                                 loc = loc,
+                                 name = name)}
 
         if (celebrate){shell.exec("https://youtu.be/dQw4w9WgXcQ")}
 }

@@ -1,4 +1,4 @@
-subtractControl <- function(data, loc, ch, cntl){
+subtractControl <- function(data, loc, ch, cntl, name){
         # filter data by Channel
         if (ch != "U"){data <- dplyr::filter(data, Channel == ch)}
         if (cntl == "raw"){return(data)}

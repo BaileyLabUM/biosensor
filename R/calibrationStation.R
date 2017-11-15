@@ -8,6 +8,7 @@
 calibrationStation <- function(time1 = 51,
                                time2 = 39,
                                getLayoutFile = FALSE,
+                               calibrate = FALSE,
                                filename = "groupNames_XPP.csv",
                                loc = "plots",
                                cntl = "thermal",
@@ -25,8 +26,11 @@ calibrationStation <- function(time1 = 51,
                 analyzeBiosensorData()
                 setwd(directory)
         })
-        x <- combineNetShifts()
-        plotCombinedNetShifts(data = x)
-        fitCalCurves(data = x)
+
+        if(calibrate){
+                x <- combineNetShifts()
+                plotCombinedNetShifts(data = x)
+                fitCalCurves(data = x)
+        }
         if (party){shell.exec("https://youtu.be/L_jWHffIx5E?t=34s")}
 }

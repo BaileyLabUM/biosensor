@@ -7,5 +7,6 @@ getName <- function(){
         name <- unlist(strsplit(directory, split = "_"))[2]
 
         # define name as global variable for use in other functions
-        name <<- gsub('gask','',name) # removes "gask" from name
+        name <- gsub('gask','',name) # removes "gask" from name
+        return(name)
 }

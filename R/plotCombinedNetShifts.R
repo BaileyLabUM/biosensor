@@ -1,4 +1,4 @@
-plotCombinedNetShifts <- function(data){
+plotCombinedNetShifts <- function(data, name){
         ggplot2::theme_set(ggthemes::theme_few(base_size = 16))
 
         plot <- ggplot2::ggplot(data,
