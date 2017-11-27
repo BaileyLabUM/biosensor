@@ -15,11 +15,10 @@ combineNetShifts <- function(){
         `%>%` <- magrittr::`%>%`
 
         netComb <- netShifts %>% dplyr::bind_rows(netShifts) %>%
-                dplyr::filter(netComb,
-                              !grepl("thermal|Ignore|Control", Target))
+                dplyr::filter(!grepl("thermal|Ignore|Control", Target))
 
         netCombAvg <- netComb %>%
-                dplyr::group_by(netComb, Target, Concentration) %>%
+                dplyr::group_by(Target, Concentration) %>%
                 dplyr::summarise_at(dplyr::vars(NetShift),
                                     dplyr::funs(mean, sd = stats::sd))
 
@@ -27,4 +26,3 @@ combineNetShifts <- function(){
         readr::write_csv(netCombAvg, path = "combinedNetShifts_Avg.csv")
         return(netComb)
 }
-

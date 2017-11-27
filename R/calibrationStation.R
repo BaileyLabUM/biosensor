@@ -11,7 +11,7 @@
 calibrationStation <- function(time1 = 51,
                                time2 = 39,
                                getLayoutFile = FALSE,
-                               calibrate = FALSE,
+                               calibrate = TRUE,
                                filename = "groupNames_XPP.csv",
                                loc = "plots",
                                cntl = "thermal",
@@ -22,31 +22,34 @@ calibrationStation <- function(time1 = 51,
                                celebrate = FALSE,
                                netShifts = TRUE,
                                uchannel = FALSE,
-                               party = TRUE) {
+                               party = TRUE,
+                               name = "Calibration",
+                               indyRuns = TRUE) {
 
         # set theme for all plots
-        plotTheme <- ggplot2::theme_bw(base_size = 16) +
-                ggplot2::theme(panel.grid = ggplot2::element_blank())
-
-        ggplot2::theme_set(plotTheme)
+        ggplot2::theme_set(ggplot2::theme_classic(base_size = 16))
 
         foldersList <- list.dirs(recursive = FALSE)
         directory <- getwd()
+        if(indyRuns){
         lapply(foldersList, function(i){
-                setwd(i)
-                analyzeBiosensorData(time1 = time1, time2 = time2,
-                                     getLayoutFile = getLayoutFile,
-                                     filename = filename, loc = loc,
-                                     cntl = cntl, chopRun = chopRun,
-                                     fsr = fsr, chkRings = chkRings,
-                                     plotData = plotData, celebrate = celebrate,
-                                     netShifts = netShifts, uchannel = uchannel)
-                setwd(directory)
-        })
+                        setwd(i)
+                        analyzeBiosensorData(time1 = time1, time2 = time2,
+                                             getLayoutFile = getLayoutFile,
+                                             filename = filename, loc = loc,
+                                             cntl = cntl, chopRun = chopRun,
+                                             fsr = fsr, chkRings = chkRings,
+                                             plotData = plotData,
+                                             celebrate = celebrate,
+                                             netShifts = netShifts,
+                                             uchannel = uchannel)
+                        setwd(directory)
+                })
+        }
 
         if(calibrate){
                 x <- combineNetShifts()
-                plotCombinedNetShifts(data = x)
+                plotCombinedNetShifts(data = x, name = name)
                 fitCalCurves(data = x)
         }
         if (party){shell.exec("https://youtu.be/L_jWHffIx5E?t=34s")}
