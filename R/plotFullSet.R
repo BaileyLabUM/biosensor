@@ -9,7 +9,6 @@ plotFullSet <- function(data){
                 ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45,
                                                                    hjust = 1),
                                legend.position = "bottom") +
-                ggplot2::ggtitle("Full Dataset") +
                 ggplot2::labs(y = "Normalized Response", color = "Time Point")
 
         ggplot2::ggsave(allPoint, filename = "everything_point.png",
@@ -21,7 +20,6 @@ plotFullSet <- function(data){
                 ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 45,
                                                                    hjust = 1),
                                legend.position = "bottom") +
-                ggplot2::ggtitle("Full Dataset") +
                 ggplot2::labs(y = "Normalized Response")
 
         ggplot2::ggsave(allBoxplot, filename = "everything_boxplot.png",

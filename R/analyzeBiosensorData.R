@@ -35,6 +35,8 @@
 #' @param chopRun the numerical value on where to start the run, and the data
 #' will only be "chopped" (subsetted) if `chopRun` > 0
 #' @param uchannel a logical value indicating if experiment is a U-channel
+#' @param multiNet a logical value indicating if there mulitple net shifts for a
+#' single run
 #'
 #' @return This function returns csv files containing processed data along with
 #' a number of png files containing plots of the processed data.
@@ -60,13 +62,11 @@ analyzeBiosensorData <- function(time1 = 51,
                                  celebrate = FALSE,
                                  netShifts = TRUE,
                                  getLayoutFile = FALSE,
-                                 uchannel = FALSE) {
+                                 uchannel = FALSE,
+                                 multiNet = FALSE) {
 
         # set theme for all plots
-        plotTheme <- ggplot2::theme_bw(base_size = 16) +
-                ggplot2::theme(panel.grid = ggplot2::element_blank())
-
-        ggplot2::theme_set(plotTheme)
+        ggplot2::theme_set(ggplot2::theme_classic(base_size = 16))
 
         name <- getName()
         dat <- aggData(filename = filename, loc = loc, fsr = fsr,
@@ -132,6 +132,18 @@ analyzeBiosensorData <- function(time1 = 51,
                                      raw = FALSE,
                                      name = name)
                 }
+        }
+
+        if(multiNet){
+                multiNetShift(netFile = "multiNetShifts.csv",
+                              data = subDat_chU,
+                              cntl = cntl,
+                              loc = loc,
+                              name = name)
+                combMulti <- combineMultiShifts(loc = loc, name = name)
+                plotMulitShifts(data = combMulti, loc = loc, name = name)
+                fitMultiCurves(data = combMulti, loc = loc)
+                netShifts <- FALSE
         }
 
         if(netShifts){

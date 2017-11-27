@@ -6,10 +6,7 @@
 
 plotDataRoutine <- function(){
         # set theme for all plots
-        plotTheme <- ggplot2::theme_bw(base_size = 16) +
-                ggplot2::theme(panel.grid = ggplot2::element_blank())
-
-        ggplot2::theme_set(plotTheme)
+        ggplot2::theme_set(ggplot2::theme_classic(base_size = 16))
 
         # change working directory to data location
         setwd("D:/Box Sync/XPP_Data")

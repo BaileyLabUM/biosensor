@@ -7,6 +7,7 @@ cytometry <- function(data){
                 cytCast <- reshape2::dcast(data = cytDat, Treatment + CellLine +
                                          TimePoint + Replicate + n ~ Target,
                                  value.var = "NormLog")
+                cytCast <- cytCast[complete.cases(cytCast),]
 
                 plot <- ggplot2::ggplot(cytCast, ggplot2::aes(x = cytCast[, 6],
                                             y = cytCast[, 7],
