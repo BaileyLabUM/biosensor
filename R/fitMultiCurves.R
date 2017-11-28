@@ -7,8 +7,8 @@ fitMultiCurves <- function(data, loc){
                 tarDat <- dplyr::filter(data, Target == i)
                 tarDat$Cycle <- as.numeric(tarDat$Cycle)
                 startA <- max(tarDat$NetShift)
-                startB <- 0.5
-                startC <- mean(c(startA, startB))
+                startB <- min(tarDat$NetShift)
+                startC <- median(tarDat$NetShift)
                 startD <- 1
                 y <- tarDat$NetShift
                 x <- as.numeric(tarDat$Cycle)

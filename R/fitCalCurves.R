@@ -7,6 +7,10 @@ fitCalCurves <- function(data, loc = 'plots', tarList){
                 tarDat <- dplyr::filter(data, Target == i)
                 y <- tarDat$NetShift
                 x <- tarDat$Concentration
+                startA <- max(tarDat$NetShift)
+                startB <- min(tarDat$NetShift)
+                startC <- median(tarDat$NetShift)
+                startD <- 1
                 tarFit <- tryCatch({fit.info <- nls(formula = y ~ A + (B - A) /
                                                             (1 + (x / C) ^ D),
                                                     start = list(A = 10000,
