@@ -5,6 +5,7 @@ fitMultiCurves <- function(data, loc){
                 tarDat <- dplyr::filter(data, Target == i)
                 y <- tarDat$NetShift
                 x <- as.numeric(as.character(tarDat$Cycle))
+                nls.control(tol =1e-03)
 
                 tarFit <- tryCatch({fit.info <- nls(formula = y ~ A + (B - A) /
                                                             (1 + (x / C) ^ D),
