@@ -29,8 +29,14 @@ plotRingData <- function(data, raw = FALSE, loc, splitPlot = FALSE, name){
         # alternative plots with averaged clusters
 
         avgDat <- dplyr::group_by(data, Target, TimePoint)
-        avgDat <- dplyr::summarise_at(avgDat, dplyr::vars(Time, Shift, Corrected),
+        if(!raw){
+                avgDat <- dplyr::summarise_at(avgDat, dplyr::vars(Time, Shift, Corrected),
                                      dplyr::funs(mean, sd = stats::sd))
+        }
+        else{
+                avgDat <- dplyr::summarise_at(avgDat, dplyr::vars(Time, Shift, Shift),
+                                     dplyr::funs(mean, sd = stats::sd))
+        }
 
         plot2 <- ggplot2::ggplot(avgDat,
                                  ggplot2::aes(x = Time_mean,
